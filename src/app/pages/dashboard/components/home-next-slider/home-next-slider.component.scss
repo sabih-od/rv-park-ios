@@ -1,11 +1,11 @@
-.userClass{
+.userClass {
   width: 45.5%;
   // display: flex;
   // justify-content: center;
   // align-items: center;
   display: inline-block;
   margin-top: 10px;
-  margin-right:16px;
+  margin-right: 16px;
 }
 .home-slider-outer {
   position: relative;
@@ -71,7 +71,6 @@
   font-size: 9px;
 }
 
-
 .parentdiv {
   height: auto;
   width: 100%;
@@ -89,7 +88,7 @@
 }
 
 .name {
-  padding: 0;
+  padding-top: 10px;
   margin: 0;
   margin-bottom: 5px;
   font-size: 24px;
@@ -119,8 +118,7 @@
 }
 
 .heart {
-
-  position:absolute;
+  position: absolute;
   top: 10px;
   right: 10px;
   // display: flex;
@@ -131,17 +129,17 @@
   // margin: 0 10px 0 0;
   // background-color: blue;
 }
-.userMainClass{
+.userMainClass {
   width: 100%;
 }
-.image{
+.image {
   width: 100%;
   height: 260px;
-  img{
+  img {
     height: 100%;
   }
 }
-.menu{
+.menu {
   // margin-top: 30px;
   // border: 1px solid red;
 }

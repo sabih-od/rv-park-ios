@@ -19,7 +19,7 @@ export class ForgetpasswordSlideComponent extends BasePage implements OnInit {
     new EventEmitter<any>();
 
   aForm;
-  loading = false;
+  loading = false; 
   constructor(injector: Injector) {
     super(injector);
   }
@@ -36,9 +36,8 @@ export class ForgetpasswordSlideComponent extends BasePage implements OnInit {
     const re = /\S+@\S+\.\S+/;
 
     this.aForm = this.formBuilder.group({
-      email: [
-        'renter23@mail.com', //test@test.com
-        Validators.compose([Validators.required, Validators.email]),
+      email: ['', //test@test.com
+        Validators.compose([Validators.required]),
       ],
     });
   }

@@ -30,12 +30,13 @@
       *ngIf="data?.park_images?.length > 0"
       pager="true"
       class="ion-slide-styles"
-      >
+    >
       <ion-slide *ngFor="let item of data.park_images">
         <div class="parent-image-outer">
           <div
             class="child-image-outer square-image-large"
-            [style.background]="'url( ' + getItemImage(item) + ')'"></div>
+            [style.background]="'url( ' + getItemImage(item) + ')'"
+          ></div>
         </div>
       </ion-slide>
     </ion-slides>
@@ -55,15 +56,17 @@
       <ion-button
         *ngIf="users.role_id === 3"
         style="height: 25px; font-size: 12px; margin-left: 13.5vh"
-        (click)="goToEditPark()">
-        Edit Park</ion-button>
+        (click)="goToEditPark()"
+      >
+        Edit Park</ion-button
+      >
       <ion-button
         *ngIf="users.role_id === 3"
         style="height: 25px; font-size: 12px"
-        (click)="deletePark()">
-        Delete Park</ion-button>
-
-
+        (click)="deletePark()"
+      >
+        Delete Park</ion-button
+      >
 
       <!-- <span class="selectDate"  (click)="toggleDate()">
         <p class="poppins">{{ selectedDate ? selectedDate : 'Select Date'}}</p>
@@ -72,11 +75,13 @@
       </span> -->
     </div>
     <div style="display: flex; flex-wrap: wrap; margin-top: 10px">
-      <ion-chip *ngFor="let item of data.park_sopts"
-          class="ball sanseriflf demibold"
-          [ngClass]="returnParseInt(item.availability) === 1 ? 'green' :
-          'gray'">
-          {{item.spot_name}}
+      <ion-chip
+        *ngFor="let item of data.park_sopts"
+        class="ball sanseriflf demibold"
+        [ngClass]="returnParseInt(item.availability) === 1 ? 'green' :
+          'gray'"
+      >
+        {{item.spot_name}}
       </ion-chip>
     </div>
 
@@ -88,66 +93,93 @@
       <h1 class="sanseriflf demibold">{{ 'Spots Details' }}</h1>
       <!-- <ion-radio-group value="strawberries" [(ngModel)]="selectedPackageId" multiple="true"> -->
       <div *ngFor="let item of data.park_sopts">
-        <div *ngFor="let aitem of item['available_date']; let i= index" >
-          <ion-card class="ion-padding"
-            [ngClass]="{cssClass: item.availability == 0}" >
+        <div *ngFor="let aitem of item['available_date']; let i= index">
+          <ion-card
+            class="ion-padding"
+            [ngClass]="{cssClass: item.availability == 0}"
+          >
             <ion-item
               lines="none"
               class="ion-no-padding"
-              [color]="aitem.id === selectedPackageId ? 'light' : ''">
+              [color]="aitem.id === selectedPackageId ? 'light' : ''"
+            >
               <ion-label>
                 <h2>
-                  <ion-chip
-                    class="chip">
+                  <ion-chip class="chip">
                     {{aitem['available_spot_date'] | date: 'yyyy-MM-dd'}}
                   </ion-chip>
-                  <br>
-                  <ion-chip
-                    class="chip">{{ aitem['available_spot_end_date'] | date:
-                    'yyyy-MM-dd' }}</ion-chip>
+                  <br />
+                  <ion-chip class="chip"
+                    >{{ aitem['available_spot_end_date'] | date: 'yyyy-MM-dd'
+                    }}</ion-chip
+                  >
                 </h2>
                 <ion-label>
                   {{item['spot_name']}} {{item['spot_location']}}
                 </ion-label>
 
-                <ion-label *ngIf="item.availability == 0" [ngClass]="{booked:
-                  item.availability == 0}" [hidden]="users.role_id === 3">
+                <ion-label
+                  *ngIf="item.availability == 0"
+                  [ngClass]="{booked:
+                  item.availability == 0}"
+                  [hidden]="users.role_id === 3"
+                >
                   Not Available
                 </ion-label>
               </ion-label>
             </ion-item>
-            <ion-list style="width: 100%;
-              margin-left: -20px;"
-              *ngIf="users.role_id === 3">
+            <ion-list
+              style="width: 100%; margin-left: -20px"
+              *ngIf="users.role_id === 3"
+            >
               <ion-item>
-                <ion-select placeholder="Select Availability" (ionChange)="changeSpot($event,item)">
-                  <ion-select-option value="Enable">Available</ion-select-option>
-                  <ion-select-option value="Disable">Not Available</ion-select-option>
+                <ion-select
+                  placeholder="Select Availability"
+                  (ionChange)="changeSpot($event,item)"
+                >
+                  <ion-select-option value="Enable"
+                    >Available</ion-select-option
+                  >
+                  <ion-select-option value="Disable"
+                    >Not Available</ion-select-option
+                  >
                 </ion-select>
               </ion-item>
             </ion-list>
 
             <ion-list *ngFor="let dat of item['available_date']">
               <!-- *ngIf="item.availability == 1" -->
-              <ion-radio-group name="radio-group"
-                [(ngModel)]="dat.selected_package">
+              <ion-radio-group
+                name="radio-group"
+                [(ngModel)]="dat.selected_package"
+              >
                 <ion-item class="ion-no-padding">
                   <ion-label>Daily ${{dat.daily_price}}</ion-label>
                 </ion-item>
 
-                <ion-item class="ion-no-padding" *ngIf="dat.weekly_price !=
-                  null">
+                <ion-item
+                  class="ion-no-padding"
+                  *ngIf="dat.weekly_price !=
+                  null"
+                >
                   <ion-label> Weekly ${{dat.weekly_price}}</ion-label>
                 </ion-item>
 
-                <ion-item class="ion-no-padding" lines="none"
-                  *ngIf="dat.monthly_price != null">
+                <ion-item
+                  class="ion-no-padding"
+                  lines="none"
+                  *ngIf="dat.monthly_price != null"
+                >
                   <ion-label>Monthly ${{dat.monthly_price}}</ion-label>
                 </ion-item>
               </ion-radio-group>
-              <ion-button expand="block" [hidden]="users.role_id === 3"
-              *ngIf="item.availability == 1"
-              (click)="gotoSelectSpot(item, aitem)" >Buy Spot</ion-button>
+              <ion-button
+                expand="block"
+                [hidden]="users.role_id === 3"
+                *ngIf="item.availability == 1"
+                (click)="gotoSelectSpot(item, aitem)"
+                >Rent Spot</ion-button
+              >
             </ion-list>
           </ion-card>
         </div>

@@ -114,7 +114,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
         ]),
       ],
       phone_number: ['', Validators.compose([Validators.required])],
-      age: ['', Validators.compose([Validators.required, Validators.min(18)])], 
+      // age: ['', Validators.compose([Validators.required, Validators.min(18)])], 
     });
   }
   setupForm2() {
