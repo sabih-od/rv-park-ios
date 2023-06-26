@@ -13,6 +13,9 @@ import { HomeSwitcherModule } from '../components/home-switcher/home-switcher.mo
 import { IconInputBoxModule } from 'src/app/components/icon-input-box/icon-input-box.module';
 import { MultipleSpotModule } from './multiple-spot/multiple-spot.module';
 import { AddSpotModule } from './add-spot/add-spot.module';
+import { AmenitiesModule } from 'src/app/components/amenities/amenities.module';
+import { AmountPeopleModule } from 'src/app/components/amount-people/amount-people.module';
+import { CamperSizeModule } from 'src/app/components/camper-size/camper-size.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +28,10 @@ import { AddSpotModule } from './add-spot/add-spot.module';
     IconInputBoxModule,
     MultipleSpotModule,
     AddSpotModule,
-    SwiperModule
+    SwiperModule,
+    AmenitiesModule,
+    AmountPeopleModule,
+    CamperSizeModule,
   ],
   declarations: [AddRvPage],
 })

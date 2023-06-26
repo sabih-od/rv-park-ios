@@ -39,7 +39,6 @@ import { ChatPage } from '../dashboard/chat/chat.page';
   ],
 })
 export class MenuDetailsPage extends BasePage implements OnInit {
-
   loading = true;
   price;
   url;
@@ -155,56 +154,52 @@ export class MenuDetailsPage extends BasePage implements OnInit {
       const string: any = localStorage.getItem('user');
       let user = JSON.parse(string);
       this.currentUser = user;
-      console.log("Current User : ", this.currentUser);
+      console.log('Current User : ', this.currentUser);
 
-      if(!id){
+      if (!id) {
         this.nav.pop();
         return;
       }
 
       this.initialize(id);
-
-
     } else {
       this.nav.pop();
       return;
     }
-
   }
 
   ngOnInit() {
     this.url = Config.URL;
   }
 
-  async initialize(id){
-
+  async initialize(id) {
     const res = await this.network.getUserRoleId();
     // this.role_id = Number(res);
-    console.log("role_id",res);
+    console.log('role_id', res);
 
     this.loading = true;
-    this.network.getSpotDetail({id: id}).then((res) => {
-      console.log('getDetail', res);
-      this.data = res;
+    this.network.getSpotDetail({ id: id }).then(
+      (res) => {
+        console.log('getDetail', res);
+        this.data = res;
 
-      // this.price = 0;
-      // if(this.data.park_sopts.length > 0){
-      //   this.price = this.data.park_sopts[0]?.spot_price;
-      // }
+        // this.price = 0;
+        // if(this.data.park_sopts.length > 0){
+        //   this.price = this.data.park_sopts[0]?.spot_price;
+        // }
 
-      // this.price = this.data.park_sopts[0]?.spot_price;
-      this.loading = false;
-      // console.log('this is park images', this.park_images);
-      // this.park_spots = this.item.park_spots;
-      // console.log('this is spots', this.park_spots);
-      // this.url = Config.URL;
-
-
-    }, err => {
-      this.nav.pop();
-      return;
-    });
-
+        // this.price = this.data.park_sopts[0]?.spot_price;
+        this.loading = false;
+        // console.log('this is park images', this.park_images);
+        // this.park_spots = this.item.park_spots;
+        // console.log('this is spots', this.park_spots);
+        // this.url = Config.URL;
+      },
+      (err) => {
+        this.nav.pop();
+        return;
+      }
+    );
   }
 
   back() {
@@ -220,13 +215,13 @@ export class MenuDetailsPage extends BasePage implements OnInit {
 
   async toggleDate() {
     console.log(this.data.park_sopts);
-    var avsp:any[] = [];
+    var avsp: any[] = [];
 
-    let avs = this.data.park_sopts.map( x => {
+    let avs = this.data.park_sopts.map((x) => {
       return x.available_date ? x.available_date : [];
     });
 
-    avs.forEach(element => {
+    avs.forEach((element) => {
       element.forEach((et: any) => {
         avsp.push(et);
       });
@@ -241,19 +236,18 @@ export class MenuDetailsPage extends BasePage implements OnInit {
     // }
     // console.log(this.selectedDate);
   }
-  gotoAddRv(peram = null){
+  gotoAddRv(peram = null) {
     // set this item in local
     localStorage.setItem('park', JSON.stringify(this.data));
-    this.nav.push('pages/dashboard/add-rv', {park_id: this.data.id})
+    this.nav.push('pages/dashboard/add-rv', { park_id: this.data.id });
   }
 
-  async checkMyItemSelected(item, aitem){
-
-
-
-    let findIndex = this.selectedPackageId.findIndex(x => x == aitem.id)
-    if(findIndex != -1) {
-      this.selectedPackageId = this.selectedPackageId.filter((value)=>value!=aitem.id);
+  async checkMyItemSelected(item, aitem) {
+    let findIndex = this.selectedPackageId.findIndex((x) => x == aitem.id);
+    if (findIndex != -1) {
+      this.selectedPackageId = this.selectedPackageId.filter(
+        (value) => value != aitem.id
+      );
     } else {
       this.selectedPackageId.push(aitem.id);
 
@@ -261,126 +255,150 @@ export class MenuDetailsPage extends BasePage implements OnInit {
         // "park_id": this.data.id,
         // "spot_id": aitem.spot_id,
         // "available_date" : aitem.available_spot_date
-        "spot_available_date_id": aitem.id,
-        "package": ""+item.available_date[0].selected_package
-      }
+        spot_available_date_id: aitem.id,
+        package: '' + item.available_date[0].selected_package,
+      };
 
       console.log(obj);
 
       const res = await this.network.addToCart(obj);
       console.log(res);
-      this.utility.presentSuccessToast("Item added to cart");
-
+      this.utility.presentSuccessToast('Item added to cart');
     }
-
-
   }
 
   selectedCategory(item) {
-    console.log(item)
+    console.log(item);
   }
 
-
-  isItemSelected(id){
-    let findIndex = this.selectedPackageId.findIndex(x => x == id);
+  isItemSelected(id) {
+    let findIndex = this.selectedPackageId.findIndex((x) => x == id);
     return findIndex != -1;
   }
 
-  async deletePark(){
+  async deletePark() {
     const res = await this.network.deletePark({
       park_id: this.park_id,
     });
     this.nav.pop();
-
   }
 
-
   async gotoBuySpot() {
+    console.log('selectedPackageId', this.selectedPackageId);
 
-    console.log("selectedPackageId",this.selectedPackageId);
-
-    let spot:any = null;
-    for( var i = 0; i < this.data.park_sopts.length; i++){
-      for(var j = 0; j < this.data.park_sopts[i]['available_date'].length; j++){
-        console.log(this.data.park_sopts[i]['available_date'][j].id, this.selectedPackageId);
-        if(this.data.park_sopts[i]['available_date'][j].id == this.selectedPackageId){
+    let spot: any = null;
+    for (var i = 0; i < this.data.park_sopts.length; i++) {
+      for (
+        var j = 0;
+        j < this.data.park_sopts[i]['available_date'].length;
+        j++
+      ) {
+        console.log(
+          this.data.park_sopts[i]['available_date'][j].id,
+          this.selectedPackageId
+        );
+        if (
+          this.data.park_sopts[i]['available_date'][j].id ==
+          this.selectedPackageId
+        ) {
           spot = this.data.park_sopts[i]['available_date'][j];
         }
       }
-
     }
 
     let obj = {
-      "park_id": this.data.id,
-      "spot_id": spot.spot_id,
-      "available_date" : spot.available_spot_date
-    }
+      park_id: this.data.id,
+      spot_id: spot.spot_id,
+      available_date: spot.available_spot_date,
+    };
 
     console.log(obj);
 
     const res = await this.network.addToCart(obj);
-    console.log(res);
-    this.utility.presentSuccessToast("Item added to cart");
+    this.utility.presentSuccessToast('Item added to cart');
     this.modals.present(CartPage);
-
-
   }
 
-  getItemImage(image){
-
-    if(image){
+  getItemImage(image) {
+    if (image) {
       const res = this.url + image?.image_url;
       return res;
     } else {
       return 'assets/images/fl1.png';
     }
-
   }
 
-
-  returnParseInt(v){
-    return parseInt(v, 10)
+  returnParseInt(v) {
+    return parseInt(v, 10);
   }
 
-
-  goToEditPark(peram = null){
-    console.log("this.data",this.data);
+  goToEditPark(peram = null) {
+    console.log('this.data', this.data);
 
     this.modals.present(AddRvPage, {
       isEdit: true,
-      park: this.data
-    })
-  }
-  gotoSelectSpot(item, aitem){
-    this.nav.push('pages/menu-details/select-spot',{
-      item: JSON.stringify(item),
-      aitem: JSON.stringify(aitem)
+      park: this.data,
     });
   }
-  async changeSpot(param,item){
+  gotoSelectSpot(item) {
+    this.nav.push('pages/menu-details/select-spot', {
+      item: JSON.stringify(item),
+      // aitem: JSON.stringify(aitem)
+    });
+  }
+  async changeSpot(param, item) {
     console.log(param.target.value);
 
     let data = {
-      spot_id : item.id,
-      availability : param.target.value
-    }
-    this.network.changeSpotAvailablility(data).then((res)=>{
+      spot_id: item.id,
+      availability: param.target.value,
+    };
+    this.network.changeSpotAvailablility(data).then((res) => {
       console.log(res);
-
-    })
+    });
   }
 
   openChat() {
-    console.log("go to Home")
-
-    if(this.currentUser.id == this.data.user_id){
+    if (this.currentUser.id == this.data.user_id) {
       // this.nav.push('pages/dashboard/chat',{park_id:this.park_id});
-      this.modals.present(ChatPage,{park_id:this.park_id} );
+      this.modals.present(ChatPage, { park_id: this.park_id });
     } else {
-      this.modals.present(ChatBoxComponent,{park_id:this.park_id, data: this.data})
+      this.modals.present(ChatBoxComponent, {
+        park_id: this.park_id,
+        data: this.data,
+      });
     }
-
-
-
   }
+
+  writeParkAmenities(array) {
+    return array.map((x) => x.amenity.name).join(', ');
+  }
+
+  writeParkCamper(item) {
+    let it = item.length > 0 ? item[0] : null;
+    return it.camper_size.name + ' | ' + it.camper_size.type;
+  }
+
+  writeParkPeople(item) {
+    return item.name + ' | ' + item.capacity;
+  }
+
+  writeCamperName(a) {
+    return a[0].camper_size.name;
+  }
+  writeCamperType(a) {
+    return a[0].camper_size.type;
+  }
+  writeCamperDescription(a) {
+    return a[0].camper_size.description;
+  }
+
+  writePeople(a) {
+    console.log(a);
+    return 'a';
+  }
+
+  writeCamperSize(b) {}
+
+  writeCamperdescription(c) {}
 }

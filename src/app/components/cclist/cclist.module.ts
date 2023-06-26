@@ -6,20 +6,15 @@ import { CommonModule } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FilterPipe } from '../../pipe/filter.pipe';
 
-
-
 @NgModule({
-  declarations: [CclistComponent,FilterPipe],
+  declarations: [CclistComponent, FilterPipe],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
     // Ng2SearchPipeModule,
-    
   ],
-  exports: [
-    CclistComponent
-  ]
+  exports: [CclistComponent],
 })
-export class CclistModule { }
+export class CclistModule {}

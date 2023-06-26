@@ -1,0 +1,56 @@
+<ion-header class="ion-padding">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer" style="display: flex; width: 100%">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+            <h4
+              style="color: black; margin-top: 20px"
+              class="sanseriflf demibold"
+            >
+              Camper size
+            </h4>
+          </ion-button>
+        </ion-buttons>
+        <h6 style="color: #167206; margin-left: 21.5vh" (click)="submit()">
+          Done
+        </h6>
+      </div>
+    </div>
+  </div>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="radio">
+      <ion-item-sliding *ngFor="let item of camperSize">
+        <ion-item>
+          <ion-label>{{ item.name }}</ion-label>
+          <ion-label style="font-size: 11px">{{ item.type }}</ion-label>
+          <ion-radio [value]="item.id"></ion-radio>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option (click)="editCamperSize('Edit Camper', item)">
+            <ion-icon slot="bottom" name="pencil"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteCamperSize(item.id)"
+            ><ion-icon slot="bottom" name="trash"></ion-icon
+          ></ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-radio-group>
+  </ion-list>
+  <ion-fab
+    slot="fixed"
+    vertical="bottom"
+    horizontal="end"
+    (click)="openAdd('Add camperSize')"
+  >
+    <ion-fab-button color="light">
+      <ion-icon
+        name="add-circle"
+        style="width: 60px; height: 60px; color: #167206"
+      ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -5,6 +5,9 @@ import { AddSpotComponent } from './add-spot/add-spot.component';
 import { Config } from 'src/app/config/main.config';
 import { SclistComponent } from 'src/app/components/sclist/sclist.component';
 import { CclistComponent } from 'src/app/components/cclist/cclist.component';
+import { AmenitiesComponent } from 'src/app/components/amenities/amenities.component';
+import { AmountPeopleComponent } from 'src/app/components/amount-people/amount-people.component';
+import { CamperSizeComponent } from 'src/app/components/camper-size/camper-size.component';
 
 @Component({
   selector: 'app-add-rv',
@@ -14,9 +17,10 @@ import { CclistComponent } from 'src/app/components/cclist/cclist.component';
 export class AddRvPage extends BasePage implements OnInit {
   aForm!: FormGroup;
   image: any;
-  park_id;
+  amenities: any;
+  park_id: any;
   @Input() park;
-  @Input() isEdit = false;
+  @Input() isEdit = true;
   spots = [];
   selectedState: any;
   url;
@@ -52,6 +56,9 @@ export class AddRvPage extends BasePage implements OnInit {
   loading = false;
   spotlist = [];
   upload_image = false;
+  campersize: any = '';
+  amountofpeople: any;
+  amountofpeopleString = '';
   constructor(injector: Injector) {
     super(injector);
   }
@@ -59,6 +66,7 @@ export class AddRvPage extends BasePage implements OnInit {
   ngOnInit() {
     this.url = Config.URL;
     this.setupForm();
+    // this.addSpot()
   }
 
   inputChange($event, type) {
@@ -85,6 +93,8 @@ export class AddRvPage extends BasePage implements OnInit {
       description: ['', Validators.compose([Validators.required])],
     });
     console.log('this is value', this.aForm.value);
+    console.log('this.park', this.park);
+
     if (this.park) {
       if (this.isEdit === true) {
         this.inputChange(this.park.name, 'name');
@@ -96,6 +106,10 @@ export class AddRvPage extends BasePage implements OnInit {
         this.inputChange(this.park.description, 'description');
         this.inputChange(this.park.id, 'id');
         this.park_id = this.park.id;
+
+        this.getParkAmenities();
+        this.getCamperSize();
+        this.getPeopleList();
       }
     }
   }
@@ -146,6 +160,48 @@ export class AddRvPage extends BasePage implements OnInit {
     }
   }
 
+  async addParkAmenities() {
+    let data = {
+      park_id: this.park_id,
+      amenities: this.amenities.map((x) => x.id),
+    };
+    this.network.addParkAmenities(data);
+  }
+
+  async addParkCamperSize() {
+    console.log(this.campersize);
+    let data = {
+      park_id: this.park_id,
+      camper_size: [this.campersize.id],
+    };
+    this.network.addParkCamperSize(data);
+  }
+
+  async addParkPeople() {
+    for (var i = 0; i < this.amountofpeople.length; i++) {
+      let data = {
+        park_id: this.park_id,
+        name: this.amountofpeople[i].name,
+        capacity: this.amountofpeople[i].count
+          ? this.amountofpeople[i].count.toString()
+          : '',
+      };
+      this.network.addPeopleType(data);
+    }
+  }
+
+  async submitstep() {
+    this.loading = true;
+    this.addParkAmenities();
+    this.addParkCamperSize();
+    this.addParkPeople();
+
+    this.loading = false;
+
+    this.step = 3;
+    this.loading = false;
+  }
+
   async addSpot() {
     const res = await this.modals.present(AddSpotComponent, {
       park_id: this.park_id,
@@ -174,6 +230,8 @@ export class AddRvPage extends BasePage implements OnInit {
   }
 
   async goToEditPark(item) {
+    console.log('editSPot', item);
+
     const res = await this.modals.present(AddSpotComponent, {
       park_id: this.park_id,
       item: item,
@@ -183,7 +241,7 @@ export class AddRvPage extends BasePage implements OnInit {
   }
 
   addImages() {
-    this.step = 3;
+    this.step = 4;
     if (this.park) {
       if (this.isEdit === true) {
         for (let index = 0; index < this.park.park_images.length; index++) {
@@ -281,6 +339,65 @@ export class AddRvPage extends BasePage implements OnInit {
     }
   }
 
+  async openAmountPeople() {
+    const res = await this.modals.present(AmountPeopleComponent, {
+      tag: 'Amount',
+      amountofpeople: this.amountofpeople,
+    });
+    console.log('amountPeople', res);
+    if (res.data?.data) {
+      this.amountofpeople = res.data.data;
+    }
+
+    // this.amountofpeopleString =
+    //   'Adults:' +
+    //   res.data.data.Adults +
+    //   ',Childrens:' +
+    //   res.data.data.Childrens +
+    //   ',Pets:' +
+    //   res.data.data.Pets +
+    //   '';
+  }
+
+  async openAmenities() {
+    const res = await this.modals.present(AmenitiesComponent, {
+      tag: 'Amenities',
+      park_id: this.park_id,
+      amenitie: this.amenities,
+    });
+    console.log('AmenitiesComponent', res);
+    if (res.data?.data) {
+      this.amenities = res.data.data;
+    }
+  }
+
+  // async openEditCamperSize() {
+  //   const res = await this.modals.present(CamperSizeComponent, {
+  //     EditCamperSize: true,
+  //     park_id: this.park_id,
+  //     camperSizeEditDetail: this.campersize,
+  //   });
+  //   console.log('CamperSizeComponent', res);
+  //   if (res.data?.data) {
+  //     this.campersize = res.data.data;
+  //   }
+  // }
+  async openCamperSize() {
+    const res = await this.modals.present(CamperSizeComponent, {
+      tag: 'CamperSize',
+      EditCamperSize: true,
+      park_id: this.park_id,
+      camperSizeEditDetail: this.campersize,
+    });
+    console.log('CamperSizeComponent', res);
+    if (res.data?.data) {
+      this.campersize = res.data.data;
+    }
+    // } else {
+    //   this.openEditCamperSize();
+    // }
+  }
+
   async openStates() {
     const res = await this.modals.present(SclistComponent, {
       tag: 'States',
@@ -307,8 +424,54 @@ export class AddRvPage extends BasePage implements OnInit {
       this.aForm.controls['city'].setValue(res.data.data.name);
     }
   }
+  removeAmenities(index) {
+    console.log('adsasd');
 
+    this.amenities.splice(index, 1);
+  }
   back() {
     this.modals.dismiss();
+  }
+  async getPeopleList() {
+    const res = await this.network.getPeopleList(this.park_id);
+    console.log('getPeopleList', res);
+
+    if (res) {
+      this.amountofpeople = res;
+    }
+  }
+
+  async getParkAmenities() {
+    const res = await this.network.getParkAmenities(this.park_id);
+
+    let newArray = res.map((item) => {
+      return item.amenity;
+    });
+
+    console.log('getParkAmenities', newArray);
+    // [{
+    //   amenity: {id: 1, name: 'Wi-Fi', description: 'Lorem Ipsum is simply dummy text of the printing a…tting industry. Lorem Ipsum has been the industry', user_id: null, created_at: '2023-05-05T13:55:33.000000Z',
+    //   amenity_id: 1,
+    //   created_at: null,
+    //   id: 77,
+    //   park_id: 161,
+    // updated_at: null}]
+    if (res) {
+      this.amenities = newArray;
+    }
+  }
+
+  async getCamperSize() {
+    const res = await this.network.getCamperSizes(this.park_id);
+    console.log('getCamperSize', res);
+
+    let newArray = res.map((item) => {
+      return item.camper_size;
+    });
+
+    console.log('camper_size', newArray);
+    if (res) {
+      this.campersize = newArray[0];
+    }
   }
 }

@@ -1,5 +1,4 @@
 <ion-content class="ion-padding">
-
   <ion-grid>
     <div class="menu-icon-outer" *ngIf="isEdit">
       <ion-buttons slot="start" (click)="back()">
@@ -32,11 +31,11 @@
         [placeholder]="'Name'"
         [value]="this.aForm.controls['name'].value"
       ></app-icon-input-box>
-      <app-icon-input-box
+      <!-- <app-icon-input-box
         (inputChange)="inputChange($event, 'location')"
         [placeholder]="'Location'"
         [value]="this.aForm.controls['location'].value"
-      ></app-icon-input-box>
+      ></app-icon-input-box> -->
       <app-icon-input-box
         (inputChange)="inputChange($event, 'address')"
         [placeholder]="'Street Address'"
@@ -81,8 +80,50 @@
       </ion-button>
     </form>
   </div>
-
   <div [hidden]="step !== 2">
+    <app-icon-input-box [placeholder]="'Amenities'" (click)="openAmenities()">
+    </app-icon-input-box>
+
+    <ion-chip
+      *ngFor="let item of amenities; let i = index"
+      (click)="removeAmenities(i)"
+    >
+      {{item.name}} <ion-icon name="close-outline"></ion-icon
+    ></ion-chip>
+    <br /><br />
+    <app-icon-input-box
+      style="margin-top: 50px"
+      [placeholder]="'Camper Size'"
+      (click)="openCamperSize()"
+      [value]="campersize ? campersize.name : ''"
+    >
+    </app-icon-input-box>
+    <br />
+    <app-icon-input-box
+      style="margin-top: 50px"
+      [placeholder]="'Add People'"
+      [value]="amountofpeopleString"
+      (click)="openAmountPeople()"
+    >
+    </app-icon-input-box>
+    <!-- (click)="removeAmountOfPeople(i)" -->
+    <ion-chip *ngFor="let item of amountofpeople; let i = index">
+      {{item.name}} - {{item.count}}
+    </ion-chip>
+    <ion-button
+      [disabled]="loading"
+      expand="block"
+      style="margin-top: 20px"
+      shape="round"
+      class="sanseriflf demibold"
+      (click)="submitstep()"
+    >
+      <span *ngIf="!loading">Next</span>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </ion-button>
+  </div>
+
+  <div [hidden]="step !== 3">
     <ion-list>
       <ion-item (click)="addSpot()">
         <ion-label>
@@ -134,7 +175,7 @@
     </ion-list>
   </div>
 
-  <div [hidden]="step !== 3">
+  <div [hidden]="step !== 4">
     <ion-list>
       <ion-item (click)="uploadImage()" lines="none">
         <ion-label>
@@ -146,7 +187,7 @@
     </ion-list>
   </div>
 
-  <div class="outer-flex-images" [hidden]="step !== 3">
+  <div class="outer-flex-images" [hidden]="step !== 4">
     <div class="title poppins">Upload Picture</div>
     <div class="inner-flex-images">
       <div

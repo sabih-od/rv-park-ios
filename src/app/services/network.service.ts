@@ -158,6 +158,21 @@ export class NetworkService {
     return this.httpGetResponse('profile/interests');
   }
 
+  getPeopleList(data) {
+    // let str = this.serialize(params);
+    // console.log(str);
+    // let url = 'cities' + (str ? '?' + str : '');
+    return this.httpGetResponse('get-people-types?park_id=' + data);
+  }
+
+  getCamperSizes(data) {
+    return this.httpGetResponse('get-park-camper-sizes?park_id=' + data);
+  }
+
+  getParkAmenities(data) {
+    return this.httpGetResponse('get-park-amenities?park_id=' + data);
+  }
+
   // getCities(id) {
   //   return this.httpGetResponse(`cities/${id}`);
   // }
@@ -193,7 +208,48 @@ export class NetworkService {
   addOrder(data) {
     return this.httpPostResponse('add-order', data, null, false);
   }
-
+  getAmenities() {
+    return this.httpGetResponse('get-amenities', null, false);
+  }
+  addParkAmenities(data) {
+    return this.httpPostResponse('add-park-amenities', data, null, false);
+  }
+  addAmenities(data) {
+    return this.httpPostResponse('add-amenities', data, null, false);
+  }
+  editAmenities(data) {
+    return this.httpPostResponse('update-amenities', data, null, false);
+  }
+  deleteAmenities(data) {
+    return this.httpPostResponse('delete-amenities', data, null, false);
+  }
+  getCamperSize() {
+    return this.httpGetResponse('get-camper-sizes', null, false);
+  }
+  addParkCamperSize(data) {
+    return this.httpPostResponse('add-park-camper-sizes', data, null, false);
+  }
+  addCamperSize(data) {
+    return this.httpPostResponse('add-camper-sizes', data, null, false);
+  }
+  editCamperSize(data) {
+    return this.httpPostResponse('update-camper-sizes', data, null, false);
+  }
+  deleteCamperSize(data) {
+    return this.httpPostResponse('delete-camper-sizes', data, null, false);
+  }
+  getPeopleType() {
+    return this.httpGetResponse('get-people-types', null, false);
+  }
+  addPeopleType(data) {
+    return this.httpPostResponse('add-people-types', data, null, false);
+  }
+  editPeopleType(data) {
+    return this.httpPostResponse('update-people-types', data, null, false);
+  }
+  deletePeopleType(data) {
+    return this.httpPostResponse('delete-people-types', data, null, false);
+  }
   sendNotification(data) {
     return this.httpPostResponse('send-notification', data, null, false);
   }

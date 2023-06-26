@@ -1,0 +1,83 @@
+<ion-header class="ion-padding">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer" style="display: flex; width: 100%">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+            <h4
+              style="color: black; margin-top: 20px"
+              class="sanseriflf demibold"
+            >
+              {{ title }}
+            </h4>
+          </ion-button>
+        </ion-buttons>
+        <h6 style="color: #167206; margin-left: 17.5vh" (click)="submit()">
+          Done
+        </h6>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="addForm" *ngIf="tag == 'add'">
+    <div class="round-box inputs">
+      <ion-input [(ngModel)]="name" name="name" placeholder="Name"> </ion-input>
+    </div>
+    <div class="round-box inputs">
+      <!-- <ion-input
+        [(ngModel)]="type"
+        name="type"
+        placeholder="type"
+      >
+      </ion-input> -->
+      <ion-list >
+        <ion-item>
+          <ion-select 
+          [(ngModel)]="type"
+          name="type"
+          placeholder="type">
+            <ion-select-option value="Large">Large</ion-select-option>
+            <ion-select-option value="Small">Small</ion-select-option>
+            <ion-select-option value="Medium">Medium</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="round-box inputs">
+      <ion-input [(ngModel)]="description" name="description" placeholder="description"> </ion-input>
+    </div>
+  </div>
+
+
+
+  
+  <div class="editForm" *ngIf="tag == 'edit'">
+    <div class="round-box inputs">
+      <ion-input [(ngModel)]="name" name="name" placeholder="Name">
+      </ion-input>
+    </div>
+    <div class="round-box inputs">
+      <!-- <ion-input
+        [(ngModel)]="item.type"
+        name="type"
+        placeholder="type"
+      >
+      </ion-input> -->
+      <ion-list >
+        <ion-item>
+          <ion-select 
+          [(ngModel)]="type"
+          name="type"
+          placeholder="type">
+            <ion-select-option value="Large">Large</ion-select-option>
+            <ion-select-option value="Small">Small</ion-select-option>
+            <ion-select-option value="Medium">Medium</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

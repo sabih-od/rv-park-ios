@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, Injector, AfterViewInit,
-} from '@angular/core';
+import { Component, OnInit, Injector, AfterViewInit } from '@angular/core';
 import { BasePage } from '../../base-page/base-page';
 import * as moment from 'moment';
 import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
@@ -9,7 +7,10 @@ import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
   templateUrl: './select-spot.component.html',
   styleUrls: ['./select-spot.component.scss'],
 })
-export class SelectSpotComponent extends BasePage implements OnInit, AfterViewInit {
+export class SelectSpotComponent
+  extends BasePage
+  implements OnInit, AfterViewInit
+{
   item;
   aitem;
   dailyDate;
@@ -29,7 +30,7 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
   packageType = 'Daily';
   packagePrice = 0;
 
-  ctype = "daily";
+  ctype = 'daily';
   expression = false;
   dateRange;
   _daysConfig: DayConfig[] = [];
@@ -46,19 +47,15 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
     super(injector);
     const params = this.nav.getQueryParams();
     this.item = JSON.parse(params['item']);
-    this.aitem = JSON.parse(params['aitem']);
-    console.log("asdik", this.item);
-    console.log("asdik", this.aitem);
-    this.initialize()
+    // this.aitem = JSON.parse(params['aitem']);
+    console.log('asdik', this.item);
+    console.log('asdik', this.aitem);
+    this.initialize();
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void {}
 
-  }
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ionViewWIllEnter() {
     // this.initialize();
@@ -68,14 +65,12 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
     this.nav.pop();
   }
 
-
-
   async initialize() {
     let data = {
-      spot_id: this.aitem.spot_id
-    }
+      spot_id: this.item.id,
+    };
 
-    const res = await this.network.getSpotDates(data)
+    const res = await this.network.getSpotDates(data);
     console.log(res);
     this.occupiedDates = res.occupiedDates;
 
@@ -85,27 +80,36 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
 
     // this.dateRange = { from: moment(res.dates[0]).format(), to: moment(res.dates[res.dates.length - 1]) };
 
-    let from = moment(res.dates[0]).format('YYYY-MM-DD')
-    let to = moment(res.dates[res.dates.length - 1]).format('YYYY-MM-DD')
+    let from = moment(res.dates[0]).format('YYYY-MM-DD');
+    let to = moment(res.dates[res.dates.length - 1]).format('YYYY-MM-DD');
 
-    console.log(to, from)
-    this.optionsRange['from'] = new Date(from);
-    this.optionsRange['to'] = new Date(to);
-    console.log(this.occupiedDates.length)
+    console.log(to, from);
+    // this.optionsRange['from'] = new Date(from);
+    // this.optionsRange['to'] = new Date(to);
+    console.log(this.occupiedDates.length);
+
+    for (let i = 0; i < res.dates.length; i++) {
+      let d = moment(res.dates[i]);
+      console.log(d);
+      this._daysConfig.push({
+        date: new Date(d.year(), d.month(), d.date()),
+        // disable: false,
+        // cssClass: 'mark-in-middle',
+      });
+    }
+
     for (let i = 0; i < this.occupiedDates.length; i++) {
       let d = moment(this.occupiedDates[i]);
       console.log(d);
       this._daysConfig.push({
         date: new Date(d.year(), d.month(), d.date()),
         disable: true,
-        cssClass: 'mark-in-middle'
-      })
+        cssClass: 'mark-in-middle',
+      });
     }
 
     this.optionsRange['daysConfig'] = this._daysConfig;
     this.expression = true;
-
-
 
     // for( var i = 0; i < this.occupiedDates.length; i++){
 
@@ -114,19 +118,14 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
 
     // _daysConfig
 
-
-
     for (let index = 0; index < res.dates.length; index++) {
       const element = res.dates[index];
-      let d = element.split("", 10).join("");
+      let d = element.split('', 10).join('');
       this.getAllAvailableDates.push(d);
     }
-
   }
 
   checkIfDateBooked(item) {
-
-
     let flag = false;
 
     for (var i = 0; i < this.occupiedDates.length; i++) {
@@ -137,114 +136,110 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
       }
     }
 
-    return !flag ? 'primary' : 'danger'
-
+    return !flag ? 'primary' : 'danger';
   }
 
   // validation check
-  isDatesLieInOccupiedDates(){
-
-    if(!this.startdate){
+  isDatesLieInOccupiedDates() {
+    if (!this.startdate) {
       return true;
     }
 
-    if(!this.enddate){
+    if (!this.enddate) {
       return true;
     }
 
     // if from start date and end date has
 
     let flag = false;
-    for(var i = 0; i < this.occupiedDates.length; i++){
+    for (var i = 0; i < this.occupiedDates.length; i++) {
       let r = moment(this.occupiedDates[i]);
       flag = r.isBetween(this.startdate, this.enddate, 'days', '[]');
 
-      if(flag == true){
+      if (flag == true) {
         break;
       }
-
-
     }
 
     return false;
   }
 
-  ctyleChange($event){
+  ctyleChange($event) {
     console.log($event);
     let v = $event.target.value;
     console.log(v);
     this.expression = false;
-    switch(this.ctype){
-      case "daily":
+    switch (this.ctype) {
+      case 'daily':
         this.optionsRange.pickMode = 'range';
-      break;
-      case "weekly":
+        break;
+      case 'weekly':
         this.optionsRange.pickMode = 'range';
-      break;
-      case "monthly":
+        break;
+      case 'monthly':
         this.optionsRange.pickMode = 'range';
-      break;
+        break;
     }
-    setTimeout( () => {
+    setTimeout(() => {
       this.expression = true;
-    }, 1000)
-
+    }, 1000);
   }
 
   async checkMyItemSelected() {
-    console.log("as", this.startdate);
+    console.log('as', this.startdate);
 
-
-    if(this.isDatesLieInOccupiedDates()){
-      this.utility.presentFailureToast("Please reselect dates");
+    if (this.isDatesLieInOccupiedDates()) {
+      this.utility.presentFailureToast('Please reselect dates');
       return;
     }
 
-
-    let findIndex = this.selectedPackageId.findIndex(x => x == this.aitem.id)
+    let findIndex = this.selectedPackageId.findIndex((x) => x == this.item.id);
     if (findIndex != -1) {
-      this.selectedPackageId = this.selectedPackageId.filter((value) => value != this.aitem.id);
+      this.selectedPackageId = this.selectedPackageId.filter(
+        (value) => value != this.item.id
+      );
     } else {
-      this.selectedPackageId.push(this.aitem.id);
-
+      this.selectedPackageId.push(this.item.id);
 
       let obj = {
-        "package_type": this.packageType,
-        "package_price": this.packagePrice,
-        "start_date": this.startdate,
-        "end_date": this.enddate,
-        "spot_id": this.aitem.spot_id
-      }
+        package_type: 'Daily',
+        start_date: this.startdate,
+        end_date: this.enddate,
+        spot_id: this.item.id,
+      };
 
       console.log(obj);
 
       const res = await this.network.addToCart(obj);
       console.log(res);
-      this.utility.presentSuccessToast("Item added to cart");
+      this.utility.presentSuccessToast('Item added to cart');
       this.nav.pop();
-
     }
-
-
   }
   dateChange($event) {
     console.log($event.target.value);
 
     this.selectedDate = moment($event.target.value);
-    if (this.packageType == "Daily") {
+    if (this.packageType == 'Daily') {
       // let daily = moment(this.selectedDate);
       // this.dailyDate = moment(daily).format("MM/DD/YYYY");
       // this.enddate = this.dailyDate;
       // if (this.enddate) {
-      this.enddate = moment(this.selectedDate).format("YYYY-MM-DD");
+      this.enddate = moment(this.selectedDate).format('YYYY-MM-DD');
     }
 
-    if (this.packageType == "Weekly") {
-      this.enddate = moment(this.selectedDate).add(1, 'week').subtract(1, 'day').format("YYYY-MM-DD");
+    if (this.packageType == 'Weekly') {
+      this.enddate = moment(this.selectedDate)
+        .add(1, 'week')
+        .subtract(1, 'day')
+        .format('YYYY-MM-DD');
     }
 
-    if (this.packageType == "Monthly") {
-      this.enddate = moment(this.selectedDate).add(1, 'month').subtract(1, 'day').format("YYYY-MM-DD");
+    if (this.packageType == 'Monthly') {
+      this.enddate = moment(this.selectedDate)
+        .add(1, 'month')
+        .subtract(1, 'day')
+        .format('YYYY-MM-DD');
     }
   }
 
@@ -271,66 +266,65 @@ export class SelectSpotComponent extends BasePage implements OnInit, AfterViewIn
     if (this.selectedDate) {
       let obj = {
         target: {
-          value: this.selectedDate
-        }
-      }
-      this.dateChange(obj)
+          value: this.selectedDate,
+        },
+      };
+      this.dateChange(obj);
     }
 
     this.packageType = $event.detail.value;
-    if ($event.detail.value == "Daily") {
+    if ($event.detail.value == 'Daily') {
       this.dailyPackage = $event.detail.value;
-    } else
-      if ($event.detail.value == "Weekly") {
-        this.weeklyPackage = $event.detail.value;
-      } else if ($event.detail.value == "Monthly") {
-        this.monthlyPackage = $event.detail.value;
-      }
-
+    } else if ($event.detail.value == 'Weekly') {
+      this.weeklyPackage = $event.detail.value;
+    } else if ($event.detail.value == 'Monthly') {
+      this.monthlyPackage = $event.detail.value;
+    }
   }
 
   getSetDates($event) {
     console.log($event);
-    this.dateRange = null;
     const range = $event;
-    // this.startdate = $event.from.format('YYYY-MM-DD');
-    // this.enddate = $event.to.format('YYYY-MM-DD');
 
-    switch(this.ctype){
-      case "daily":
-        this.startdate = range.format('YYYY-MM-DD');
-        this.enddate = range.format('YYYY-MM-DD');
-      break;
-      case "weekly":
-        this.startdate = range.from.format('YYYY-MM-DD');
-        this.enddate = range.to.format('YYYY-MM-DD');
-      break;
-      case "monthly":
-        this.startdate = range.from.format('YYYY-MM-DD');
-        this.enddate = range.to.format('YYYY-MM-DD');
-      break;
+    this.startdate = range.from.format('YYYY-MM-DD');
+    this.enddate = range.to.format('YYYY-MM-DD');
+    console.log('item wali date', this.item.end_date);
+    console.log('current date', this.enddate);
+
+    if (this.enddate <= this.item.end_date) {
+      this.enddate = range.to.format('YYYY-MM-DD');
+    } else {
+      this.utility.presentFailureToast('Please select available date');
+      this.enddate = null;
     }
 
-    switch(this.ctype){
-      case "daily":
-        this.enddate = range.format('YYYY-MM-DD');
-      break;
-      case "weekly":
-        this.enddate = range.from.add(1, 'week').subtract(1, 'day').format('YYYY-MM-DD');
-      break;
-      case "monthly":
-        this.enddate = range.from.add(1, 'month').subtract(1, 'day').format('YYYY-MM-DD');
-      break;
-    }
+    // switch(this.ctype){
+    //   case "daily":
+    //     this.startdate = range.format('YYYY-MM-DD');
+    //     this.enddate = range.format('YYYY-MM-DD');
+    //   break;
+    //   case "weekly":
+    //     this.startdate = range.from.format('YYYY-MM-DD');
+    //     this.enddate = range.to.format('YYYY-MM-DD');
+    //   break;
+    //   case "monthly":
+    //     this.startdate = range.from.format('YYYY-MM-DD');
+    //     this.enddate = range.to.format('YYYY-MM-DD');
+    //   break;
+    // }
 
+    // switch(this.ctype){
+    //   case "daily":
+    //     this.enddate = range.format('YYYY-MM-DD');
+    //   break;
+    //   case "weekly":
+    //     this.enddate = range.from.add(1, 'week').subtract(1, 'day').format('YYYY-MM-DD');
+    //   break;
+    //   case "monthly":
+    //     this.enddate = range.from.add(1, 'month').subtract(1, 'day').format('YYYY-MM-DD');
+    //   break;
+    // }
 
-
-    this.dateRange = this.ctype == "daily" ? null : { from: moment(this.startdate), to: moment(this.enddate) };
-
-
+    // this.dateRange = this.ctype == "daily" ? null : { from: moment(this.startdate), to: moment(this.enddate) };
   }
-
-
-
 }
-
