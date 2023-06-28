@@ -1,5 +1,18 @@
-<ion-header>
-  <h1 style="font-weight: bold; margin-left: 30%;">Select City</h1>
+<ion-header class="ion-padding">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+            <h4 style="color: black" class="sanseriflf demibold">
+             Select City
+            </h4>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+  </div>
 </ion-header>
 <ion-searchbar  [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
 <ion-content>

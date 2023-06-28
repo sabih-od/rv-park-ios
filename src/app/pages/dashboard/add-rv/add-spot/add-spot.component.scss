@@ -9,13 +9,14 @@ ion-content {
 #map {
   height: 100%;
 }
-.sanseriflf{
+.sanseriflf {
   margin-top: 80px;
 }
 .b-header-output {
   display: block;
   width: 100%;
-  margin-top: 20px;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   // background-color: #004d22;
@@ -121,7 +122,7 @@ ion-button {
 .head {
   margin-left: 25px;
 }
-.date{
+.date {
   width: 100%;
 }
 .most-input-outer {
@@ -207,15 +208,6 @@ ion-button {
       transform: translateY(-50%);
       font-size: 22px;
     }
-  }
-
-  .b-header-output {
-    display: block;
-    margin-top: 20px;
-    width: 100%;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
   }
   .menu-icon-outer h4 {
     color: white;
@@ -327,14 +319,6 @@ ion-button {
     }
   }
 
-  .b-header-output {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;
@@ -447,14 +431,6 @@ ion-button {
     }
   }
 
-  .b-header-output {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;
@@ -565,14 +541,6 @@ ion-button {
     }
   }
 
-  .b-header-output {
-    display: block;
-    margin-top: 20px;
-    width: 100%;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;
@@ -686,14 +654,6 @@ ion-button {
     }
   }
 
-  .b-header-output {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;

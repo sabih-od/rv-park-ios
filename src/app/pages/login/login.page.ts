@@ -41,7 +41,7 @@ export class LoginPage extends BasePage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.swiper?.swiperRef
+    this.swiper?.swiperRef;
     setTimeout(() => {
       const param = this.nav.getQueryParams();
       console.log(param);
@@ -69,7 +69,7 @@ export class LoginPage extends BasePage implements OnInit, AfterViewInit {
   }
 
   gotoFp() {
-    console.log("gotoFp");
+    console.log('gotoFp');
 
     this.swiper?.swiperRef.slideTo(2);
   }

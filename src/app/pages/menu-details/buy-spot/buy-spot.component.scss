@@ -5,7 +5,8 @@ ion-content {
 .b-header-output {
   display: block;
   width: 100%;
-  margin-top: 20px;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   // background-color: #004d22;

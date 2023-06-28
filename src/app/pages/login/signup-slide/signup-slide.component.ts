@@ -51,20 +51,13 @@ export class SignupSlideComponent extends BasePage implements OnInit {
     if (this.step == 1) {
       this.aForm.controls[type].setValue($event);
 
-
-      if(type == 'phone_number'){
-
-        const format = this.utility.onkeyupFormatPhoneNumberRuntime($event, true);
+      if (type == 'phone_number') {
+        const format = this.utility.onkeyupFormatPhoneNumberRuntime(
+          $event,
+          true
+        );
         this.aForm.controls[type].setValue(format);
-
-
       }
-
-
-
-
-
-
     }
 
     if (this.step == 2) {
@@ -102,19 +95,21 @@ export class SignupSlideComponent extends BasePage implements OnInit {
 
       email: [
         '', //test@test.com
-        Validators.compose([Validators.required,Validators.pattern(re)]),
+        Validators.compose([Validators.required, Validators.pattern(re)]),
       ],
       password: [
         '', // 12345678
         Validators.compose([
           Validators.minLength(6),
           Validators.maxLength(30),
-          Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$'),
+          Validators.pattern(
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^ws]).{8,}$'
+          ),
           Validators.required,
         ]),
       ],
       phone_number: ['', Validators.compose([Validators.required])],
-      // age: ['', Validators.compose([Validators.required, Validators.min(18)])], 
+      // age: ['', Validators.compose([Validators.required, Validators.min(18)])],
     });
   }
   setupForm2() {
@@ -240,7 +235,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
       this.utility.presentFailureToast(err);
       return;
     }
-``
+    ``;
     this.users.register(this.aForm.value).then(
       (res) => {
         if (res) {
@@ -282,14 +277,13 @@ export class SignupSlideComponent extends BasePage implements OnInit {
   }
   async openStates() {
     const res = await this.modals.present(SclistComponent, {
-      tag: 'States', 
+      tag: 'States',
     });
 
-    
     console.log('asd', res.data.data);
     if (res.data && res.data.data) {
       this.selectedState = res.data.data;
-      console.log(this.selectedState)
+      console.log(this.selectedState);
 
       this.bForm.controls['province'].setValue(res.data.data.name);
     }
@@ -310,8 +304,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
       this.bForm.controls['city'].setValue(res.data.data.name);
     }
   }
-  dateOfBirth($event){
-
+  dateOfBirth($event) {
     let v = $event.target.value;
     console.log(v);
 
@@ -327,6 +320,5 @@ export class SignupSlideComponent extends BasePage implements OnInit {
     let data = await this.modals.present(PrivacyPageComponent);
     this.agreePrivacyPolicy = data.data.agreePrivacyPolicy;
     console.log(this.agreePrivacyPolicy);
-    
   }
 }

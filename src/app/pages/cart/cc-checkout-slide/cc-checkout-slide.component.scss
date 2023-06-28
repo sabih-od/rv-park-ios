@@ -8,7 +8,8 @@ ion-content {
 .b-header-output {
   display: block;
   width: 100%;
-  margin-top: 20px;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   // background-color: #004d22;
@@ -167,7 +168,6 @@ ion-content {
     // justify-content: space-between;
   }
   .checkout-button {
-
     // font-size: 16px;
     // width: 100%;
     // --background:green;
@@ -189,12 +189,11 @@ ion-content {
   }
 }
 
-
-.paymentContainer{
+.paymentContainer {
   width: 100%;
 }
 
-.payment{
+.payment {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -202,15 +201,14 @@ ion-content {
   // padding-left: 16px;
   // padding-right: 16px;
   // background-color: #004d22;
-
 }
 
-.paymentKey{
+.paymentKey {
   font-size: 14px;
   color: black;
 }
 
-.paymenyValue{
+.paymenyValue {
   font-size: 18px;
   color: black;
 }
@@ -263,15 +261,13 @@ ion-content {
   }
 }
 
-
-.checkoutDiv{
+.checkoutDiv {
   width: 100%;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   // background-color: aqua;
-
 
   margin: 0;
   padding: 0;
@@ -282,5 +278,5 @@ ion-content {
   bottom: 10%;
   width: 100%;
   font-size: 14px;
-  --background:#167206;
+  --background: #167206;
 }

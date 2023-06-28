@@ -8,7 +8,8 @@
 .b-header-output {
   display: block;
   width: 100%;
-  margin-top: 20px;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   // background-color: #004d22;
@@ -134,14 +135,6 @@
 ul li {
   color: #9f9f9f;
   font-size: 13px;
-}
-
-.b-header-output {
-  // background-color: aqua;
-  display: flex;
-  margin-top: 20px;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .b-header-main {

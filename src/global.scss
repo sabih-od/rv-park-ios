@@ -29,6 +29,10 @@
 @import "./../node_modules/swiper/swiper.scss";
 // @import "~@ionic/angular/css/ionic-swiper";
 
+// ion-router {
+//   padding-top: constant(safe-area-inset-top) + 10px;
+//   padding-top: env(safe-area-inset-top) + 10px;
+// }
 ion-toolbar {
   --border: unset !important;
   --border-width: 0 !important;
@@ -36,7 +40,6 @@ ion-toolbar {
 .w-100 {
   width: 100%;
 }
-
 
 .square {
   position: relative;
@@ -48,7 +51,7 @@ ion-toolbar {
   padding-bottom: 100%;
 }
 
-.curve-header{
+.curve-header {
   background: #fbfbfb;
   border-radius: 0 0 50px 50px;
 }
@@ -74,18 +77,25 @@ ion-toolbar {
   font-family: Poppins;
 }
 
-.transparent-modal{
-  background: rgba(0,0,0,0.5);
+.transparent-modal {
+  background: rgba(0, 0, 0, 0.5);
   --background: transparent !important;
 }
 
-
-input{
+input {
   outline: none;
 }
 
-.mark-in-middle{
+.mark-in-middle {
   // background-color: pink !important;
   -webkit-text-decoration-line: line-through; /* Safari */
-   text-decoration-line: line-through; 
+  text-decoration-line: line-through;
 }
+
+// body {
+//   margin-top: constant(safe-area-inset-top);
+//   margin-top: env(safe-area-inset-top);
+// }
+// ion-tab-bar {
+//   margin-bottom: calc(4px + env(safe-area-inset-top));
+// }

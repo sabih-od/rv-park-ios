@@ -122,9 +122,9 @@ export class AddRvPage extends BasePage implements OnInit {
       this.aForm.controls['address'].value === '' ||
       this.aForm.controls['address'].value === ' ' ||
       this.aForm.controls['address'].value === undefined ||
-      this.aForm.controls['location'].value === '' ||
-      this.aForm.controls['location'].value === ' ' ||
-      this.aForm.controls['location'].value === undefined ||
+      // this.aForm.controls['location'].value === '' ||
+      // this.aForm.controls['location'].value === ' ' ||
+      // this.aForm.controls['location'].value === undefined ||
       this.aForm.controls['city'].value === '' ||
       this.aForm.controls['city'].value === ' ' ||
       this.aForm.controls['city'].value === undefined ||

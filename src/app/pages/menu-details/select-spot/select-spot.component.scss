@@ -3,7 +3,8 @@
 }
 .b-header-output {
   display: block;
-  margin-top: 10px;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
   width: 100%;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -187,15 +188,6 @@
       font-size: 22px;
     }
   }
-
-  .b-header-output {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;
@@ -308,14 +300,6 @@
     }
   }
 
-  .b-header-output {
-    display: block;
-    margin-top: 20px;
-    width: 100%;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    // background-color: #004d22;
-  }
   .menu-icon-outer h4 {
     color: white;
     margin-top: 10px;

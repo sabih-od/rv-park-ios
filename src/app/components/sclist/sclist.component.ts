@@ -12,6 +12,7 @@ export class SclistComponent extends BasePage implements OnInit {
   cities: any[] = [];
   searchTerm: any;
   @Input() city;
+  isModal: any;
   constructor(injector: Injector, public data: DataService) {
     super(injector);
     this.initialize();
@@ -20,7 +21,9 @@ export class SclistComponent extends BasePage implements OnInit {
   ngOnInit() {
 
   }
-
+  back(){
+    this.modals.dismiss();
+  }
  async initialize(){
     let data = await this.data.getStates() as any[];
     this.cities = data;

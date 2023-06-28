@@ -26,6 +26,9 @@ export class CclistComponent extends BasePage implements OnInit {
     console.log(this.state);
     this.initialize();
   }
+  back(){
+    this.modals.dismiss();
+  }
 
   async initialize() {
     this.page = 1;
