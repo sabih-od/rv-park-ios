@@ -23,15 +23,17 @@ import { FirebaseService } from './services/firebase.service';
 import { EventsService } from './services/events.service';
 import { CalendarModule } from 'ion2-calendar';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+import { ViewPropertyDetailComponent } from './components/view-property-detail/view-property-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, FilterPipePipe],
+  declarations: [AppComponent, FilterPipePipe, ViewPropertyDetailComponent],
   imports: [
     FormsModule,
     MbscModule,
     BrowserModule,
     IonicModule.forRoot({
       mode: 'ios',
+      // animated: false
     }),
     AppRoutingModule,
     HttpClientModule,
@@ -52,7 +54,8 @@ import { Camera } from '@awesome-cordova-plugins/camera/ngx';
     NgxPubSubService,
     FirebaseService,
     EventsService,
-    Camera
+    Camera,
+    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })

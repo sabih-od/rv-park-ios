@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -13,15 +13,38 @@
     </div>
     <div class="main-icon-outer"></div>
   </div>
+</ion-header> -->
+
+<ion-header class="curve-header" style="background: #f7f7f7;">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer">
+        <ion-buttons slot="start" (click)="closeModal()">
+          <ion-button>
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <h4>Cart</h4>
+      </div>
+      <!-- (click)="showNotificaitons()" -->
+      <!-- <div class="bell-icon-outer"> 
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div> -->
+    </div>
+  </div>
 </ion-header>
+
+
 <ion-content>
 
+  <ion-item lines="none" class="noitemfound" *ngIf="cartServ.net_total == 0">
+    <ion-label> Your cart is empty </ion-label>
+    <ion-button slot="end" fill="clear"></ion-button>
+  </ion-item>
 
-
-
-  <app-cart-list-item ></app-cart-list-item>
-  <div class="bn765">
-    <div class="checkout-outer" style="border-bottom: 2px solid #EBEBEB; margin-bottom: 20px;">
+  <app-cart-list-item *ngIf="cartServ.net_total != 0"></app-cart-list-item>
+  <div class="bn765" *ngIf="cartServ.net_total != 0">
+    <div class="checkout-outer">
       <div class="apply-code-main">
         <div class="apply-code">
           <ion-item class="input">
@@ -39,26 +62,22 @@
         <div class="paymentContainer">
           <div class="payment">
             <span class="paymentKey sanseriflf demibold">PRICE</span>
-            <span class="paymenyValue sanseriflf demibold">$ {{cartServ.total}}</span>
+            <span class="paymenyValue sanseriflf demibold">$ {{cartServ.total | number: '1.0'}}</span>
           </div>
           <div class="payment">
             <span class="paymentKey sanseriflf demibold">FEES</span>
-            <span class="paymenyValue">$ {{ cartServ.net_total - cartServ.total}}</span>
+            <span class="paymenyValue">$ {{ cartServ.net_total - cartServ.total | number: '1.0'}}</span>
           </div>
 
           <div class="payment">
             <span class="paymentKey sanseriflf demibold">TOTAL</span>
-            <span class="paymenyValue">$ {{cartServ.net_total}} </span>
+            <span class="paymenyValue">$ {{cartServ.net_total | number: '1.0'}} </span>
           </div>
 
         </div>
 
-        <ion-button (click)="openCheckout()" [disabled]="cartServ.net_total === 0" shape="round" color="primary" expand="block" class="checkout-button">
-          CHECKOUT
-        </ion-button>
-
-
-
+        <ion-button (click)="openCheckout()" [disabled]="cartServ.net_total === 0" shape="round" color="primary"
+          expand="block" class="checkout-button"> CHECKOUT </ion-button>
       </div>
     </div>
   </div>

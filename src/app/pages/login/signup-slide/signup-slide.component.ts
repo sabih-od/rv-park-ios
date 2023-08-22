@@ -108,6 +108,17 @@ export class SignupSlideComponent extends BasePage implements OnInit {
           Validators.required,
         ]),
       ],
+      confirm_password: [
+        '', // 12345678
+        Validators.compose([
+          Validators.minLength(6),
+          Validators.maxLength(30),
+          Validators.pattern(
+            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^ws]).{8,}$'
+          ),
+          Validators.required,
+        ]),
+      ],
       phone_number: ['', Validators.compose([Validators.required])],
       // age: ['', Validators.compose([Validators.required, Validators.min(18)])],
     });
@@ -186,7 +197,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
         this.nav.push('pages/dashboard');
         // }
       },
-      (err) => {}
+      (err) => { }
     );
     // console.log('signup api', data.data.token);
 
@@ -217,7 +228,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
           }
         }
       },
-      (err) => {}
+      (err) => { }
     );
     // console.log('signup api', data.data.token);
 
@@ -230,12 +241,20 @@ export class SignupSlideComponent extends BasePage implements OnInit {
   //
 
   async signupPartOne() {
+    console.log('this.aForm => ', this.aForm.value)
     if (this.aForm.invalid) {
       const err = this.formErrors.getFirstFormError(this.aForm);
       this.utility.presentFailureToast(err);
       return;
     }
     ``;
+
+    if (this.aForm.value.password != this.aForm.value.confirm_password) {
+      this.utility.presentFailureToast(`Passwords don't match`);
+      return;
+    }
+
+
     this.users.register(this.aForm.value).then(
       (res) => {
         if (res) {
@@ -243,8 +262,9 @@ export class SignupSlideComponent extends BasePage implements OnInit {
           this.step = 2;
         }
       },
-      (err) => {}
+      (err) => { }
     );
+
     // console.log('signup api', data.data.token);
 
     // this.isShow = !this.isShow;
@@ -266,7 +286,7 @@ export class SignupSlideComponent extends BasePage implements OnInit {
           this.nav.push('pages/dashboard');
         }
       },
-      (err) => {}
+      (err) => { }
     );
     // console.log('signup api', data.data.token);
 

@@ -11,6 +11,9 @@ export class HomePage extends BasePage implements OnInit {
   obje76: any[] = [];
   // role_id: any;
   title = 'RV Spots';
+
+  loading = true;
+
   constructor(injector: Injector) {
     super(injector);
   }
@@ -18,10 +21,12 @@ export class HomePage extends BasePage implements OnInit {
   async getParks() {
     if ((await this.users.getUserRoleId()) === '3') {
       const res = await this.network.getMylist();
+      if (res) this.loading = false;
       this.obje76 = res;
       this.title = 'My RV Spots';
     } else {
       const res = await this.network.getSpotlist();
+      if (res) this.loading = false;
       this.obje76 = res;
     }
 

@@ -19,24 +19,16 @@ import { Config } from 'src/app/config/main.config';
 })
 export class CcBoxLayoutComponent implements OnInit {
   @Input('heading') heading = '';
-  @Input('list') list:any[] = [];
-
-
-
-
-
-
-
+  @Input('list') list: any[] = [];
   @Output('selection') selection: EventEmitter<any> = new EventEmitter<any>();
   url;
-  constructor(public network: NetworkService, public nav: NavService) {}
+  constructor(public network: NetworkService, public nav: NavService) { }
 
   ngOnInit() {
     this.url = Config.URL;
   }
 
   menuDetails(item) {
-
     let id = item.id;
     this.nav.push('pages/menu-details', { item_id: id });
 
@@ -44,14 +36,13 @@ export class CcBoxLayoutComponent implements OnInit {
   }
 
   getItemImage(item) {
-
     var images = item?.park_images;
-    if(images.length > 0){
+    // console.log(item);
+    if (images.length > 0) {
       const res = this.url + images[0]?.image_url;
       return res;
     } else {
-      return 'assets/images/fl1.png';
+      return 'assets/images/no_image_found.png';
     }
-
   }
 }

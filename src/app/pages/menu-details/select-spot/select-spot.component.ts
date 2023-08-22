@@ -9,8 +9,7 @@ import { DayConfig, CalendarComponentOptions } from 'ion2-calendar';
 })
 export class SelectSpotComponent
   extends BasePage
-  implements OnInit, AfterViewInit
-{
+  implements OnInit, AfterViewInit {
   item;
   aitem;
   dailyDate;
@@ -26,6 +25,10 @@ export class SelectSpotComponent
   finalEndDate: any;
   startdate: any;
   selectedPackageId: any[] = [];
+
+  item_startdate;
+  item_enddate;
+
 
   packageType = 'Daily';
   packagePrice = 0;
@@ -43,19 +46,27 @@ export class SelectSpotComponent
     // from: new Date('2023-03-01')
   };
 
+  loadcalender = false;
+
   constructor(injector: Injector) {
     super(injector);
     const params = this.nav.getQueryParams();
     this.item = JSON.parse(params['item']);
+    // this.item.start_date = '2023-08-01';
+    // this.item.end_date = '2023-08-31';
+    console.log('params => ', this.item)
     // this.aitem = JSON.parse(params['aitem']);
     console.log('asdik', this.item);
+    this.item_startdate = moment(this.item.start_date).format('MM/DD/YYYY');
+    this.item_enddate = moment(this.item.end_date).format('MM/DD/YYYY');
+
     console.log('asdik', this.aitem);
     this.initialize();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWIllEnter() {
     // this.initialize();
@@ -71,44 +82,90 @@ export class SelectSpotComponent
     };
 
     const res = await this.network.getSpotDates(data);
-    console.log(res);
-    this.occupiedDates = res.occupiedDates;
+    this.loadcalender = true;
+    // const res = {
+    //   "occupiedDates": [
+    //     "2023-08-09T00:00:00.000000Z",
+    //     "2023-08-10T00:00:00.000000Z",
+    //     "2023-08-11T00:00:00.000000Z",
+    //     "2023-08-12T00:00:00.000000Z",
+    //     "2023-08-22T00:00:00.000000Z",
+    //     "2023-08-23T00:00:00.000000Z",
+    //     "2023-08-24T00:00:00.000000Z"
+    //   ],
+    //   "dates": [
+    //     "2023-08-08T00:00:00.000000Z",
+    //     "2023-08-09T00:00:00.000000Z",
+    //     "2023-08-10T00:00:00.000000Z",
+    //     "2023-08-11T00:00:00.000000Z",
+    //     "2023-08-12T00:00:00.000000Z",
+    //     "2023-08-13T00:00:00.000000Z",
+    //     "2023-08-14T00:00:00.000000Z",
+    //     "2023-08-15T00:00:00.000000Z",
+    //     "2023-08-16T00:00:00.000000Z",
+    //     "2023-08-17T00:00:00.000000Z",
+    //     "2023-08-18T00:00:00.000000Z",
+    //     "2023-08-19T00:00:00.000000Z",
+    //     "2023-08-20T00:00:00.000000Z",
+    //     "2023-08-21T00:00:00.000000Z",
+    //     "2023-08-22T00:00:00.000000Z",
+    //     "2023-08-23T00:00:00.000000Z",
+    //     "2023-08-24T00:00:00.000000Z",
+    //     "2023-08-25T00:00:00.000000Z",
+    //     "2023-08-26T00:00:00.000000Z",
+    //     "2023-08-27T00:00:00.000000Z",
+    //     "2023-08-28T00:00:00.000000Z"
+    //   ]
+    // }
 
+    // res.dates = res.dates.filter(date => !res.occupiedDates.includes(date));
+
+    console.log(res);
+    if (res) {
+      if(typeof res.occupiedDates === 'object'){
+        res.occupiedDates = Array.from(res.occupiedDates);
+      }
+      this.occupiedDates = res.occupiedDates;
+      console.log('this.occupiedDates => ', this.occupiedDates)
+    }
     if (res.dates.length <= 0) {
       return;
     }
 
     // this.dateRange = { from: moment(res.dates[0]).format(), to: moment(res.dates[res.dates.length - 1]) };
 
-    let from = moment(res.dates[0]).format('YYYY-MM-DD');
-    let to = moment(res.dates[res.dates.length - 1]).format('YYYY-MM-DD');
+    let from = moment(res.dates[0]).format('MM/DD/YYYY');
+    let to = moment(res.dates[res.dates.length - 1]).format('MM/DD/YYYY');
 
     console.log(to, from);
     // this.optionsRange['from'] = new Date(from);
     // this.optionsRange['to'] = new Date(to);
-    console.log(this.occupiedDates.length);
+    console.log('this.occupiedDates.length => ', this.occupiedDates.length);
 
-    for (let i = 0; i < res.dates.length; i++) {
-      let d = moment(res.dates[i]);
-      console.log(d);
-      this._daysConfig.push({
-        date: new Date(d.year(), d.month(), d.date()),
-        // disable: false,
-        // cssClass: 'mark-in-middle',
-      });
-    }
 
     for (let i = 0; i < this.occupiedDates.length; i++) {
-      let d = moment(this.occupiedDates[i]);
-      console.log(d);
-      this._daysConfig.push({
-        date: new Date(d.year(), d.month(), d.date()),
+      let d = moment(this.occupiedDates[i]).format('YYYY-MM-DD');
+      console.log('this.d => ', d)
+      this.optionsRange.daysConfig?.push({
+        date: new Date(d),
         disable: true,
         cssClass: 'mark-in-middle',
       });
     }
 
-    this.optionsRange['daysConfig'] = this._daysConfig;
+    console.log('this.optionsRange.daysConfig => ', this.optionsRange.daysConfig);
+
+    for (let i = 0; i < res.dates.length; i++) {
+      let d = moment(res.dates[i]).format('YYYY-MM-DD');
+      this.optionsRange.daysConfig?.push({
+        date: new Date(d),
+        // disable: false,
+        // cssClass: 'mark-in-middle',
+      });
+    }
+
+
+    // this.optionsRange['daysConfig'] = this._daysConfig;
     this.expression = true;
 
     // for( var i = 0; i < this.occupiedDates.length; i++){
@@ -203,8 +260,8 @@ export class SelectSpotComponent
 
       let obj = {
         package_type: 'Daily',
-        start_date: this.startdate,
-        end_date: this.enddate,
+        start_date: moment(this.startdate).format('YYYY-MM-DD'),
+        end_date: moment(this.enddate).format('YYYY-MM-DD'),
         spot_id: this.item.id,
       };
 
@@ -216,6 +273,7 @@ export class SelectSpotComponent
       this.nav.pop();
     }
   }
+
   dateChange($event) {
     console.log($event.target.value);
 
@@ -225,21 +283,21 @@ export class SelectSpotComponent
       // this.dailyDate = moment(daily).format("MM/DD/YYYY");
       // this.enddate = this.dailyDate;
       // if (this.enddate) {
-      this.enddate = moment(this.selectedDate).format('YYYY-MM-DD');
+      this.enddate = moment(this.selectedDate).format('MM/DD/YYYY');
     }
 
     if (this.packageType == 'Weekly') {
       this.enddate = moment(this.selectedDate)
         .add(1, 'week')
         .subtract(1, 'day')
-        .format('YYYY-MM-DD');
+        .format('MM/DD/YYYY');
     }
 
     if (this.packageType == 'Monthly') {
       this.enddate = moment(this.selectedDate)
         .add(1, 'month')
         .subtract(1, 'day')
-        .format('YYYY-MM-DD');
+        .format('MM/DD/YYYY');
     }
   }
 
@@ -286,13 +344,14 @@ export class SelectSpotComponent
     console.log($event);
     const range = $event;
 
-    this.startdate = range.from.format('YYYY-MM-DD');
-    this.enddate = range.to.format('YYYY-MM-DD');
+    this.startdate = range.from.format('MM/DD/YYYY');
+    this.enddate = range.to.format('MM/DD/YYYY');
+
     console.log('item wali date', this.item.end_date);
     console.log('current date', this.enddate);
 
     if (this.enddate <= this.item.end_date) {
-      this.enddate = range.to.format('YYYY-MM-DD');
+      this.enddate = range.to.format('MM/DD/YYYY');
     } else {
       this.utility.presentFailureToast('Please select available date');
       this.enddate = null;

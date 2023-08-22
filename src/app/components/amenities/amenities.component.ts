@@ -11,6 +11,7 @@ export class AmenitiesComponent extends BasePage implements OnInit {
   name: any;
   description: any;
   amenities: any;
+  loading = true;
   @Input() park_id;
   @Input() item;
   @Input() tag;
@@ -22,7 +23,7 @@ export class AmenitiesComponent extends BasePage implements OnInit {
     this.getAmenitities();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   back() {
     this.modals.dismiss();
@@ -49,16 +50,21 @@ export class AmenitiesComponent extends BasePage implements OnInit {
   }
   async getAmenitities() {
     const res = await this.network.getAmenities();
+    this.loading = false;
+    
     console.log('amenitie', this.amenitie, res);
-    this.amenities = res
-    // this.amenities = res.map((item) => {
-    //   let findIndex = this.amenitie.find((x: any) => x.id == item.id);
-    //   if (findIndex) {
-    //     item['checked'] = true;
-    //   }
-
-    //   return item;
-    // });
+    // this.amenities = res
+    if (this.amenitie.length > 0) {
+      this.amenities = res.map((item) => {
+        let findIndex = this.amenitie.find((x: any) => x.id == item.id);
+        if (findIndex) {
+          item['checked'] = true;
+        }
+        return item;
+      });
+    }else{
+      this.amenities = res;
+    }
   }
   async deleteAmenities(id) {
     await this.network.deleteAmenities({ id: id });

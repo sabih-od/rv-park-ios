@@ -23,7 +23,7 @@ export class LoginSlideComponent extends BasePage implements OnInit {
   @Output('gotoFbp') gotoFbp: EventEmitter<any> = new EventEmitter<any>();
 
   passwordType: string = 'password';
-  remember_me = false;
+  remember_me = true;
 
   aForm!: FormGroup;
   loading = false;
@@ -57,11 +57,11 @@ export class LoginSlideComponent extends BasePage implements OnInit {
 
     this.aForm = this.formBuilder.group({
       email: [
-        '', //test@test.com
+        '', // johnsmith@mailinator.com, 'oliviataylor@mailinator.com'
         Validators.compose([Validators.required, Validators.pattern(re)]),
       ],
       password: [
-        '', // 12345678
+        '', // Password123
         Validators.compose([
           Validators.minLength(6),
           Validators.maxLength(30),

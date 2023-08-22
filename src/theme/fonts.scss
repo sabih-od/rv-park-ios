@@ -20,6 +20,19 @@
   font-style: normal;
   src: url("./../assets/fonts/Poppins-SemiBold.ttf");
 }
+
+@font-face {
+  font-family: "PoppinsBold";
+  font-style: normal;
+  src: url("./../assets/fonts/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: "PoppinsExtraBold";
+  font-style: normal;
+  src: url("./../assets/fonts/Poppins-ExtraBold.ttf");
+}
+
 @font-face {
   font-family: "SansSerifFLF";
   font-style: normal;
@@ -48,10 +61,10 @@
   font-family: "PoppinsSemibold";
 }
 
-.sanseriflf{
-  font-family: "SansSerifFLF";
+.sanseriflf {
+  font-family: "PoppinsSemibold";
 }
 
-.sanseriflf.demibold{
-  font-family: "SansSerifFLFDemibold";
+.sanseriflf.demibold {
+  font-family: "PoppinsSemibold";
 }

@@ -1,22 +1,21 @@
 .login-component-mainheading {
-  font-size: 28px;
-  margin-bottom: 7px;
-  margin-top: 60px;
+  font-size: 24px;
+  margin-bottom: 4px;
 }
+
 .login-component-heading {
   font-size: 14px;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   color: #808080;
   font-weight: lighter;
 }
-.b-header-output {
-  margin-top: 25px;
-}
+
 .fp-box-outer {
   height: 40px;
   width: 100%;
   //   background: yellow;
   position: relative;
+
   .fp-link {
     color: var(--ion-color-primary);
     border-bottom: 1px solid var(--ion-color-primary);
@@ -27,14 +26,17 @@
     font-size: 12px;
   }
 }
+
 .b-button-outer {
   width: 100%;
   margin-top: 21px;
   margin-bottom: 34px;
 }
+
 .or-div {
   font-size: 18px;
 }
+
 .cont-div {
   font-size: 14px;
   margin-top: 15px;
@@ -81,6 +83,7 @@
   width: 100%;
   height: 50vw;
   text-align: center;
+
   .image-inner-div {
     width: 50vw;
     border: 1px solid lightgreen;

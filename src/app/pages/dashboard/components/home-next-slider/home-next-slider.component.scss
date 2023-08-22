@@ -7,12 +7,14 @@
   margin-top: 10px;
   margin-right: 16px;
 }
+
 .home-slider-outer {
   position: relative;
 }
 
 .main-slider {
-  padding: 20px;
+  padding: 15px;
+  padding-top: 5px;
   padding-bottom: 0px;
 }
 
@@ -77,6 +79,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-bottom: 10px;
 }
 
 .area {
@@ -91,8 +94,16 @@
   padding-top: 10px;
   margin: 0;
   margin-bottom: 5px;
-  font-size: 24px;
-  font-weight: 300;
+  font-size: 20px;
+}
+
+.newstar {
+  font-family: 'Poppins';
+
+  ion-icon {
+    margin-right: 6px;
+    font-size: 15px;
+  }
 }
 
 .location {
@@ -108,7 +119,17 @@
   justify-content: flex-start;
   align-items: center;
   width: auto;
+
   // background-color: #167206;
+  img {
+    width: 10px;
+  }
+}
+
+.boxsize {
+  ion-label {
+    margin: 0;
+  }
 }
 
 .new {
@@ -129,16 +150,20 @@
   // margin: 0 10px 0 0;
   // background-color: blue;
 }
+
 .userMainClass {
   width: 100%;
 }
+
 .image {
   width: 100%;
   height: 260px;
+
   img {
     height: 100%;
   }
 }
+
 .menu {
   // margin-top: 30px;
   // border: 1px solid red;

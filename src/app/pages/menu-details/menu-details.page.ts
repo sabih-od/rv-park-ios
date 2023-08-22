@@ -18,6 +18,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
 import { PackagesPage } from '../dashboard/packages/packages.page';
 import { ChatBoxComponent } from '../dashboard/chat/chat-box/chat-box.component';
 import { ChatPage } from '../dashboard/chat/chat.page';
+import { NotificationsPage } from '../dashboard/notifications/notifications.page';
 
 @Component({
   selector: 'app-menu-details',
@@ -51,86 +52,22 @@ export class MenuDetailsPage extends BasePage implements OnInit {
   park_id;
   data: any;
   balls = [
-    {
-      name: '1A',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '1B',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '1C',
-      color: 'white',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '1D',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '2A',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '2B',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '2C',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '2D',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '3A',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '3B',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '3C',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '3D',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '4A',
-      color: 'green',
-      bg_color: '#F6F5F5',
-    },
-    {
-      name: '4B',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '4C',
-      color: 'white',
-      bg_color: 'green',
-    },
-    {
-      name: '4D',
-      color: 'white',
-      bg_color: 'green',
-    },
+    { name: '1A', color: 'white', bg_color: 'green', },
+    { name: '1B', color: 'green', bg_color: '#F6F5F5', },
+    { name: '1C', color: 'white', bg_color: '#F6F5F5', },
+    { name: '1D', color: 'white', bg_color: 'green', },
+    { name: '2A', color: 'green', bg_color: '#F6F5F5', },
+    { name: '2B', color: 'white', bg_color: 'green', },
+    { name: '2C', color: 'green', bg_color: '#F6F5F5', },
+    { name: '2D', color: 'green', bg_color: '#F6F5F5', },
+    { name: '3A', color: 'white', bg_color: 'green', },
+    { name: '3B', color: 'white', bg_color: 'green', },
+    { name: '3C', color: 'white', bg_color: 'green', },
+    { name: '3D', color: 'green', bg_color: '#F6F5F5', },
+    { name: '4A', color: 'green', bg_color: '#F6F5F5', },
+    { name: '4B', color: 'white', bg_color: 'green', },
+    { name: '4C', color: 'white', bg_color: 'green', },
+    { name: '4D', color: 'white', bg_color: 'green', },
   ];
   @Output() EmitMenu = new EventEmitter<string>();
 
@@ -183,6 +120,11 @@ export class MenuDetailsPage extends BasePage implements OnInit {
         console.log('getDetail', res);
         this.data = res;
 
+        this.data.park_sopts.map(x => {
+          x.availability = String(x.availability)
+          console.log("x => ", x);
+        })
+        console.log("this.data => ", this.data);
         // this.price = 0;
         // if(this.data.park_sopts.length > 0){
         //   this.price = this.data.park_sopts[0]?.spot_price;
@@ -211,6 +153,11 @@ export class MenuDetailsPage extends BasePage implements OnInit {
   addToCart() {
     // this.nav.push('pages/cart');
     this.modals.present(CartPage);
+  }
+
+
+  async showNotificaitons() {
+    const res = await this.modals.present(NotificationsPage);
   }
 
   async toggleDate() {
@@ -348,10 +295,11 @@ export class MenuDetailsPage extends BasePage implements OnInit {
   }
   async changeSpot(param, item) {
     console.log(param.target.value);
-
+    const selectvalue = param.target.value;
+    console.log('param.target.value => ', param.target.value)
     let data = {
       spot_id: item.id,
-      availability: param.target.value,
+      availability: selectvalue == 1 ? 'Enable' : 'Disable',
     };
     this.network.changeSpotAvailablility(data).then((res) => {
       console.log(res);
@@ -376,11 +324,11 @@ export class MenuDetailsPage extends BasePage implements OnInit {
 
   writeParkCamper(item) {
     let it = item.length > 0 ? item[0] : null;
-    return it.camper_size.name + ' | ' + it.camper_size.type;
+    return it.camper_size.name + ': ' + it.camper_size.type;
   }
 
   writeParkPeople(item) {
-    return item.name + ' | ' + item.capacity;
+    return item.name + ': ' + item.capacity;
   }
 
   writeCamperName(a) {
@@ -398,7 +346,7 @@ export class MenuDetailsPage extends BasePage implements OnInit {
     return 'a';
   }
 
-  writeCamperSize(b) {}
+  writeCamperSize(b) { }
 
-  writeCamperdescription(c) {}
+  writeCamperdescription(c) { }
 }

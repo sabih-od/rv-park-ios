@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/services/basic/modal.service';
 import { SwiperComponent } from 'swiper/angular';
 import { HomeSwitcherComponent } from '../dashboard/components/home-switcher/home-switcher.component';
 import { UserService } from 'src/app/services/user.service';
+import { InAppBrowser, InAppBrowserEvent } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CartPage implements OnInit, AfterViewInit {
   @ViewChild('swiper', { static: false }) swiper?: IonSlides;
 
   loading = true;
-  constructor(public modals: ModalService, public cartServ: CartService, public users: UserService) {}
+  constructor(public modals: ModalService, public cartServ: CartService, public users: UserService, private iab: InAppBrowser) { }
 
   ngAfterViewInit(): void {
     this.swiper?.lockSwipes(true);
@@ -30,11 +31,26 @@ export class CartPage implements OnInit, AfterViewInit {
     this.initialize();
   }
 
-  async initialize(){
+  async initialize() {
     this.loading = true;
     const res = await this.cartServ.fetchCart();
     console.log(res);
     this.loading = false;
+  }
+
+  beforeLoadFunction(event: InAppBrowserEvent): void {
+    const browser = event.target as any;
+
+    // Check the platform to use the appropriate code
+    if (browser['_platform'] === 'ios') {
+      browser.executeScript({
+        code: `document.getElementById('doneButton').innerHTML = 'Cancel';`
+      });
+    } else if (browser['_platform'] === 'android') {
+      browser.executeScript({
+        code: `document.getElementById('toolbar').querySelector('.done').innerHTML = 'Cancel';`
+      });
+    }
   }
 
   toCheckout(index) {
@@ -42,18 +58,27 @@ export class CartPage implements OnInit, AfterViewInit {
 
       let userId = this.users.user.id;
       let url = `https://kjrvportal.com/payment?amount=${this.cartServ.net_total}&user_id=${userId}&card_id=${this.cartServ.cart.id}`;
-      window.open(url, '_blank')
+      // window.open(url, '_blank')
+      var self = this;
 
+      //  beforeload: 
+      let icc = this.iab.create(url, '_blank', { location: 'no', toolbar: 'no', closebuttoncaption: 'Close', });
 
+      icc.on('loadstart').subscribe(event => {
+        if (event.url === 'https://kjrvportal.com/') {
+          icc.close();
+        }
+      });
 
-      this.swiper?.lockSwipes(false);
-      this.swiper?.slideTo(index);
-      this.swiper?.lockSwipes(true);
-      
+      icc.on('beforeload').subscribe(() => {
+        this.beforeLoadFunction.bind(self);
+      })
 
-
-
-
+      icc.on('exit').subscribe(() => {
+        self.swiper?.lockSwipes(false);
+        self.swiper?.slideTo(index);
+        self.swiper?.lockSwipes(true);
+      });
 
 
     } else {

@@ -15,10 +15,7 @@ import { Capacitor } from '@capacitor/core';
   providedIn: 'root',
 })
 export class FirebaseService {
-  constructor(
-    public events: EventsService,
-    public network: NetworkService,
-  ) {
+  constructor(public events: EventsService, public network: NetworkService) {
     this.assignEvents();
   }
 
@@ -64,25 +61,25 @@ export class FirebaseService {
   }
 
   setupNativePush() {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>(async (resolve) => {
+      let result = await PushNotifications.checkPermissions();
 
-      PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === 'prompt') {
+        result = await PushNotifications.requestPermissions();
+      }
 
-        if (result.receive === 'granted') {
-          PushNotifications.register();
-          resolve();
-        } else {
-          // Show some error
-          resolve();
-        }
+      // PushNotifications.requestPermissions().then((result) => {
 
-      });
+      if (result.receive === 'granted') {
+        PushNotifications.register();
+      }
+
+      // });
 
       // On success, we should be able to receive notifications
       PushNotifications.addListener('registration', (token: Token) => {
         localStorage.setItem('fcm_token', token.value);
         console.log(token);
-        
       });
 
       PushNotifications.addListener('registrationError', (error: any) => {
@@ -92,12 +89,11 @@ export class FirebaseService {
       PushNotifications.addListener(
         'pushNotificationReceived',
         (notification: PushNotificationSchema) => {
-
-          console.log("here it falls through")
+          console.log('here it falls through');
 
           this.events.publish('dashboard:notificationReceived');
           this.events.publish('dashboard:refreshpage');
-//          this.audio.play('');
+          //          this.audio.play('');
         }
       );
 

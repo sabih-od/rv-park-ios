@@ -21,7 +21,7 @@ export class CartService {
       const res = await this.network.getCart();
       console.log(res);
       this.cart = res['list'];
-      // this.fee = res['fee'];
+      this.fee = res['fee'];
       await this.getCartTotal();
       this.loading = false;
       resolve(true)
@@ -50,9 +50,9 @@ export class CartService {
 
       console.log(this.total);
 
-      this.fee = Math.round(this.total * 0.1);
+      var tl = Math.round(this.total * this.fee);
 
-      this.net_total = this.total + this.fee;
+      this.net_total = this.total + tl;
       resolve(this.total);
 
     })

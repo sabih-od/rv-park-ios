@@ -22,6 +22,7 @@ export class HomeNextSliderComponent extends BasePage implements OnInit {
   url;
   image_url;
   imageArray;
+  loading = true;
   // role_id: any;
   constructor(injector: Injector) {
     super(injector);
@@ -49,6 +50,7 @@ export class HomeNextSliderComponent extends BasePage implements OnInit {
     let list = await this.network.getSpotlist().then((res) => {
       this.park_data = res;
       console.log('park_data', this.park_data);
+      this.loading = false;
       // this.imageArray = this.park_data.map(x => x.park_images[0])
       // console.log(this.imageArray);
     });
@@ -58,13 +60,13 @@ export class HomeNextSliderComponent extends BasePage implements OnInit {
     this.nav.push('pages/menu-details', { item_id: id });
   }
 
-  getImageUrl(item){
+  getImageUrl(item) {
 
-    if(item.park_images.length == 0){
+    if (item.park_images.length == 0) {
       return 'assets/images/fl1.png';
     }
 
-    if(item.park_images[0].image_url){
+    if (item.park_images[0].image_url) {
       return this.url + item.park_images[0].image_url
     }
 

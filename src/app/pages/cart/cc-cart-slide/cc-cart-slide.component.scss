@@ -1,6 +1,7 @@
 ion-content {
   font-family: poppins;
 }
+
 .b-header-output {
   display: block;
   width: 100%;
@@ -10,41 +11,31 @@ ion-content {
   margin-top: constant(safe-area-inset-top);
   margin-top: env(safe-area-inset-top);
 }
-.menu-icon-outer h4 {
-  color: white;
-  margin-top: 10px;
-  font-size: 22px;
-}
+
+
 .main-menu-img {
   padding: 5px;
 }
+
 .main-menu-img img {
   padding: 15px;
 }
+
 .main-menu-img h5 {
   font-weight: 700 !important;
 }
-.b-header-main {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  // height: 50px;
-  justify-content: space-between;
-  padding: 16px 16px;
-  align-items: center;
-}
 
-.menu-icon-outer {
-  position: relative;
-  //   width: 50px;
-  // height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  .menu76 {
-    margin-right: 16px;
-  }
-}
+// .b-header-main {
+//   display: flex;
+//   flex-direction: row;
+//   width: 100%;
+//   // height: 50px;
+//   justify-content: space-between;
+//   padding: 16px 16px;
+//   align-items: center;
+// }
+
+
 .shop-icon-outer {
   position: relative;
   //   width: 50px;
@@ -52,12 +43,14 @@ ion-content {
   display: block;
   margin-right: 8px;
 }
-.bell-icon-outer {
-  position: relative;
-  //   width: 50px;
-  // height: 50px;
-  display: block;
-}
+
+// .bell-icon-outer {
+//   position: relative;
+//   //   width: 50px;
+//   // height: 50px;
+//   display: block;
+// }
+
 .combined-icons {
   // width: 50px;
   display: flex;
@@ -65,14 +58,18 @@ ion-content {
   justify-content: space-between;
   height: 21px;
 }
+
 .image-card {
   margin: 20px !important;
 }
+
 .content-outer {
   margin: 0 20px !important;
+
   .heading {
     font-size: 18px;
   }
+
   .subheading {
     font-size: 10px;
     margin-bottom: 20px;
@@ -95,12 +92,15 @@ ion-content {
       align-items: center;
       position: relative;
       margin-bottom: 20px;
+
       .price-text {
         font-size: 12px;
       }
+
       .price-rate {
         font-size: 12px;
       }
+
       .mid-line-box {
         position: relative;
         background: yellow;
@@ -108,12 +108,14 @@ ion-content {
         height: 100%;
         padding-left: 10px;
         padding-right: 10px;
+
         .line43 {
           position: relative;
           width: 100%;
           height: 100%;
           background: yellow;
         }
+
         .line43:after {
           content: "";
           position: absolute;
@@ -122,18 +124,17 @@ ion-content {
           left: 0;
           right: 0;
           height: 1px;
-          border-bottom: 2px dotted var(--ion-color-primary); /*change these values to suit your liking*/
+          border-bottom: 2px dotted var(--ion-color-primary);
+          /*change these values to suit your liking*/
         }
       }
     }
   }
 }
+
 .checkout-outer {
-  border-top: 1px solid lightgray;
-  padding: 20px 0;
-  margin-top: 40px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px 15px;
+  // border-bottom: 2px solid #EBEBEB;
 
   //   margin-bottom: 250px;
   .apply-code-main {
@@ -144,6 +145,7 @@ ion-content {
     align-items: center;
     // height: 100px;
   }
+
   .apply-code {
     width: 100%;
     // margin-top: 30px;
@@ -158,9 +160,13 @@ ion-content {
       width: 60%;
       border-radius: 30px;
       font-size: 12px;
-      border: 1px solid #f1f1f1;
+      // border: 1px solid #f1f1f1;
       filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.1));
+      font-family: "poppins";
+      --border-width: 0;
+      --border-color: transparent;
     }
+
     .button {
       width: 120px;
       height: 43px;
@@ -171,10 +177,11 @@ ion-content {
       align-items: center;
       background: #167206;
       color: white;
-      font-size: 10px;
+      font-size: 12px;
     }
   }
 }
+
 .checkout {
   // border: 1px solid red;
   // background: red;
@@ -187,7 +194,7 @@ ion-content {
 
   // height: 150px;
   // top: 80%;
-  margin-bottom: 200px;
+  margin-bottom: 120px;
   // background-color: #167206;
 
   .checkout-price-main {
@@ -198,7 +205,14 @@ ion-content {
     justify-content: flex-start;
     align-items: flex-start;
     justify-content: space-between;
+    font-family: 'PoppinsSemibold';
+
+    h1 {
+      margin-top: 0;
+      font-family: 'PoppinsSemibold';
+    }
   }
+
   .checkout-button {
     margin-top: 16px;
     // padding: 0;
@@ -210,6 +224,7 @@ ion-content {
     // font-size: 14px;
     // --background:#167206;
   }
+
   .checkout-price {
     // border: 1px solid red;
     // background: red;
@@ -217,9 +232,11 @@ ion-content {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+
     .price-total {
       font-size: 12px;
     }
+
     .price-rate {
       font-size: 30px;
     }
@@ -268,6 +285,52 @@ ion-content {
   font-size: 14px;
   --background: #167206;
 }
+
 .login_button {
   font-size: 18px;
+}
+
+ion-input {
+  font-family: 'poppins';
+  background-color: #fff;
+}
+
+
+.b-header-output {
+  display: block;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  .b-header-main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 7px 16px;
+    align-items: center;
+
+    .menu-icon-outer {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      ion-button {
+        margin-left: -11px;
+      }
+
+      h4 {
+        margin-top: 10px;
+        font-size: 20px;
+        font-family: 'PoppinsSemibold';
+      }
+
+      .menu76 {
+        margin-right: 16px;
+      }
+    }
+  }
 }

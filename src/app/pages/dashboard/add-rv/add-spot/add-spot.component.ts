@@ -69,8 +69,8 @@ export class AddSpotComponent extends BasePage implements OnInit {
       this.park_id = this.item?.park_id;
       this.spot_name = this.item?.spot_name;
       this.location = this.item?.spot_location;
-      this.start_Date = this.item?.start_date;
-      this.end_date = this.item?.end_date;
+      this.start_Date = moment(this.item?.start_date).format('MM/DD/YYYY');
+      this.end_date = moment(this.item?.end_date).format('MM/DD/YYYY');
       this.spot_price = this.item?.spot_price;
       // this.weekly = data?.weekly_price
       // this.monthly = data?.monthly_price
@@ -201,11 +201,11 @@ export class AddSpotComponent extends BasePage implements OnInit {
         id: this.id,
         park_id: this.park_id,
         spot_name: this.spot_name,
-        // spot_location: this.location,
+        spot_location: this.location,
         package_type: 'daily',
         start_date: moment(this.start_Date).format('YYYY-MM-DD'),
         end_date: moment(this.end_date).format('YYYY-MM-DD'),
-        // spot_price: this.spot_price,
+        spot_price: this.spot_price,
       };
       const res = await this.network.updateSpots(data);
       this.modals.dismiss();

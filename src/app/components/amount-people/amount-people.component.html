@@ -1,63 +1,42 @@
-<ion-header class="ion-padding">
+<ion-header>
   <div class="b-header-output">
     <div class="b-header-main">
-      <div class="menu-icon-outer" style="display: flex; width: 100%">
+      <div class="menu-icon-outer" style="display: flex; width: 100%; justify-content: space-between">
         <ion-buttons slot="start">
           <ion-button (click)="back()">
             <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
-            <h4
-              style="color: black; margin-top: 20px"
-              class="sanseriflf demibold"
-            >
-              People
-            </h4>
+            <h4 style="color: black" class="sanseriflf demibold">People</h4>
           </ion-button>
         </ion-buttons>
-        <h6 style="color: #167206; margin-left: 23.5vh" (click)="submit()">
-          Done
-        </h6>
+        <h6 style="color: #167206;
+        margin: 0;
+        font-size: 13px;" (click)="submit()">Done</h6>
       </div>
     </div>
   </div>
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-sliding>
+    <ion-item-sliding class="selectlistitem">
       <ion-item>
         <ion-label>Adults</ion-label>
-        <ion-input
-          type="number"
-          [(ngModel)]="Adults"
-          name="Adults"
-          placeholder="Amount of Adults"
-        ></ion-input>
+        <ion-input type="number" [(ngModel)]="Adults" name="Adults" placeholder="Amount of Adults"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Children</ion-label>
-        <ion-input
-          type="number"
-          [(ngModel)]="Childrens"
-          name="Childrens"
-          placeholder="Amount of Childrens"
-        ></ion-input>
+        <ion-input type="number" [(ngModel)]="Childrens" name="Childrens" placeholder="Amount of Childrens"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Pets</ion-label>
-        <ion-input
-          type="number"
-          [(ngModel)]="Pets"
-          name="Pets"
-          placeholder="Amount of Pets"
-        ></ion-input>
+        <ion-input type="number" [(ngModel)]="Pets" name="Pets" placeholder="Amount of Pets"></ion-input>
       </ion-item>
 
       <ion-item-options>
         <!-- <ion-item-option (click)="editAmenities('Edit Amenities',item)">
           <ion-icon slot="bottom" name="pencil"></ion-icon>
         </ion-item-option> -->
-        <ion-item-option color="danger" (click)="deletePeopleType(item.id)"
-          ><ion-icon slot="bottom" name="trash"></ion-icon
-        ></ion-item-option>
+        <ion-item-option color="danger" (click)="deletePeopleType(item.id)"><ion-icon slot="bottom"
+            name="trash"></ion-icon></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

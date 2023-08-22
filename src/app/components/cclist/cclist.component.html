@@ -1,4 +1,4 @@
-<ion-header class="ion-padding">
+<ion-header>
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -6,7 +6,7 @@
           <ion-button (click)="back()">
             <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
             <h4 style="color: black" class="sanseriflf demibold">
-             Select City
+              Select City
             </h4>
           </ion-button>
         </ion-buttons>
@@ -14,9 +14,15 @@
     </div>
   </div>
 </ion-header>
-<ion-searchbar  [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
+<!-- <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar> -->
 <ion-content>
-  <ion-list>
+
+  <div *ngIf="loading" class="loadingcart ion-text-center">
+    <ion-spinner></ion-spinner>
+    <p>Loading Cities..</p>
+  </div>
+
+  <ion-list class="selectlistitem">
     <ion-item *ngFor="let item of cities" (click)="selectCity(item)">
       {{ item.name }}
     </ion-item>

@@ -17,6 +17,7 @@ export class CartListItemComponent implements OnInit {
 
   async initialize() {
     this.list = await this.cartServ.getCartItems() as [];
+    console.log('this.list => ', this.list)
   }
 
   async deleteItem(item){

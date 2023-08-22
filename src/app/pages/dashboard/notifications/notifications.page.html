@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="curve-header">
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -9,22 +9,18 @@
         </ion-buttons>
         <h4 style="color: black" class="sanseriflf demibold">Notifications</h4>
       </div>
-      <!-- <div class="main-icon-outer"></div> -->
-      <div class="combined-icons">
-        <div class="bell-icon-outer">
-          <img src="assets/images/notification.png" />
-        </div>
-      </div>
     </div>
   </div>
 </ion-header>
 <ion-content>
-  <div *ngIf="loading" class="ion-text-center">
+
+  <div *ngIf="loading" class="loadingcart ion-text-center">
     <ion-spinner></ion-spinner>
+    <p>Loading Notifications..</p>
   </div>
 
-  
-  <ion-list>
+
+  <ion-list *ngIf="!loading">
     <ion-item *ngIf="list.length == 0">
       <ion-label>
         <h2>No Notifications</h2>

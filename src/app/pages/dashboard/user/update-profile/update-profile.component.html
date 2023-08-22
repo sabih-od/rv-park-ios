@@ -1,4 +1,4 @@
-<ion-header class="ion-padding">
+<ion-header class="curve-header">
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -16,15 +16,8 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="aForm">
-    <div
-      class="sanseriflf demibold login-component-mainheading"
-      style="font-size: 28px"
-    >
-    User Profile
-    </div>
-    <div class="poppins login-component-heading" style="font-size: 14px">
-      Update your imformation
-    </div>
+    <div class="sanseriflf demibold login-component-mainheading"> User Profile </div>
+    <div class="poppins login-component-heading"> Update your imformation </div>
     <!-- <ion-avatar class="ion-no-margin" >
       <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
     </ion-avatar> -->
@@ -37,30 +30,13 @@
         (inputChange)="inputChange($event, 'street_address')"
         [value]="aForm.controls['street_address'].value"
       ></app-icon-input-box> -->
-      <app-icon-input-box
-        [readonly]="true"
-        [leftIcon]="'list-outline'"
-        [placeholder]="'States'"
-        (click)="openStates()"
-        (inputChange)="inputChange($event, 'province')"
-        [value]="aForm.controls['province'].value"
-      ></app-icon-input-box>
-      <app-icon-input-box
-        [readonly]="true"
-        [leftIcon]="'list-outline'"
-        [placeholder]="'City'"
-        (click)="openCities()"
-        (inputChange)="inputChange($event, 'city')"
-        [value]="aForm.controls['city'].value"
-      ></app-icon-input-box>
+      <app-icon-input-box [readonly]="true" [leftIcon]="'list-outline'" [placeholder]="'States'" (click)="openStates()"
+        (inputChange)="inputChange($event, 'province')" [value]="aForm.controls['province'].value"></app-icon-input-box>
+      <app-icon-input-box [readonly]="true" [leftIcon]="'list-outline'" [placeholder]="'City'" (click)="openCities()"
+        (inputChange)="inputChange($event, 'city')" [value]="aForm.controls['city'].value"></app-icon-input-box>
 
-      <app-icon-input-box
-        [leftIcon]="'list-outline'"
-        [readonly]="true"
-        [placeholder]="'Country'"
-        (inputChange)="inputChange($event, 'country')"
-        [value]="aForm.controls['country'].value"
-      ></app-icon-input-box>
+      <app-icon-input-box [leftIcon]="'list-outline'" [readonly]="true" [placeholder]="'Country'"
+        (inputChange)="inputChange($event, 'country')" [value]="aForm.controls['country'].value"></app-icon-input-box>
     </div>
     <div class="b-button-outer">
       <ion-button [disabled]="loading" class="login_button" shape="round" expand="block" (click)="addUpdateProfile()">

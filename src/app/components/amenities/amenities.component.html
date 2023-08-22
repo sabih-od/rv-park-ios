@@ -1,55 +1,49 @@
-<ion-header class="ion-padding">
+<ion-header>
   <div class="b-header-output">
     <div class="b-header-main">
-      <div class="menu-icon-outer" style="display: flex; width: 100%">
+      <div class="menu-icon-outer" style="display: flex; width: 100%; justify-content: space-between">
         <ion-buttons slot="start">
           <ion-button (click)="back()">
             <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
-            <h4
-              style="color: black; margin-top: 20px"
-              class="sanseriflf demibold"
-            >
-              Amenities
-            </h4>
+            <h4 style="color: black" class="sanseriflf demibold">Amenities</h4>
           </ion-button>
         </ion-buttons>
-        <h6 style="color: #167206; margin-left: 23.5vh" (click)="submit()">
-          Done
-        </h6>
+        <h6 style="color: #167206;
+        margin: 0;
+        font-size: 13px;" (click)="submit()">Done</h6>
       </div>
     </div>
   </div>
 </ion-header>
 <ion-content>
+
+  <div *ngIf="loading" class="loadingcart ion-text-center">
+    <ion-spinner></ion-spinner>
+    <p>Loading Amenities..</p>
+  </div>
+
   <ion-list>
-    <ion-item-sliding *ngFor="let item of amenities">
+    <ion-item-sliding class="selectlistitem" *ngFor="let item of amenities">
       <ion-item>
         <ion-label>{{ item.name }}</ion-label>
         <div *ngIf="tag == 'EditAmenities'"></div>
-        <ion-checkbox
-          [(ngModel)]="item.checked"
-          (ionChange)="changeAmenities(item.name)"
-        >
+        <ion-checkbox [(ngModel)]="item.checked" (ionChange)="changeAmenities(item.name)">
         </ion-checkbox>
       </ion-item>
       <ion-item-options>
         <ion-item-option (click)="editAmenities('Edit Amenities', item)">
           <ion-icon slot="bottom" name="pencil"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger" (click)="deleteAmenities(item.id)"
-          ><ion-icon slot="bottom" name="trash"></ion-icon
-        ></ion-item-option>
+        <ion-item-option color="danger" (click)="deleteAmenities(item.id)"><ion-icon slot="bottom"
+            name="trash"></ion-icon></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button color="light">
-      <ion-icon
-        name="add-circle"
-        (click)="openAdd('Add Amenities')"
-        style="width: 60px; height: 60px; color: #167206"
-      ></ion-icon>
+      <ion-icon name="add-circle" (click)="openAdd('Add Amenities')"
+        style="width: 60px; height: 60px; color: #167206"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

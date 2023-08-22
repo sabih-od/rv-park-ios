@@ -1,19 +1,25 @@
 <ion-content>
-  <ion-list>
-    <ion-item *ngIf="loading">
-      <ion-label>
-        Loading cart ...
-      </ion-label>
-        <ion-spinner slot="end"></ion-spinner>
-    </ion-item>
-  </ion-list>
+  <!-- <div class="b-header-output" *ngIf="loading">
+    <div class="b-header-main">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            Loading cart ...
+          </ion-label>
+          <ion-spinner slot="end"></ion-spinner>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div> -->
+
+  <div *ngIf="loading" class="loadingcart ion-text-center">
+    <ion-spinner></ion-spinner>
+    <p>Loading Cart..</p>
+  </div>
 
   <ion-slides class="swiper-outer" #swiper *ngIf="!loading">
     <ion-slide class="swiper-inner">
-      <app-cc-cart-slide
-        (toCheckout)="toCheckout(1)"
-        (toOut)="toOut(1)"
-      ></app-cc-cart-slide>
+      <app-cc-cart-slide (toCheckout)="toCheckout(1)" (toOut)="toOut(1)"></app-cc-cart-slide>
     </ion-slide>
     <!-- <ion-slide class="swiper-inner">
       <app-cc-checkout-slide

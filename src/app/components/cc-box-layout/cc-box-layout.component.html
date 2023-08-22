@@ -1,9 +1,9 @@
-<div class="sanseriflf demibold heading" style="padding: 16px 0">
+<div class="sanseriflf demibold heading">
   {{ heading }}
 </div>
 <div class="cc-box-outer">
   <div *ngIf="list.length === 0">
-    <ion-item lines="none">
+    <ion-item lines="none" class="noitemfound">
       <ion-label> No {{ heading }} Available </ion-label>
       <ion-button slot="end" fill="clear"></ion-button>
     </ion-item>
@@ -13,32 +13,14 @@
       <ion-col size="6" *ngFor="let item of list" (click)="menuDetails(item)">
         <div class="item-box" style="padding: 0 5px">
           <div class="item">
-            <div
-              class="image-box"
-              [style.background]="'url( ' + getItemImage(item) + ')'"
-            ></div>
+            <div class="image-box" [style.background]="'url( ' + getItemImage(item) + ')'"></div>
             <div class="a123">
               <p class="name poppins">{{ item.name }}</p>
             </div>
-            <div
-              style="
-                display: flex;
-                justify-content: start;
-                width: 100%;
-                padding: 0 5px;
-                margin-top: 10px;
-              "
-            >
-              <img
-                src="assets/images/locationIcon.png"
-                style="height: 12px; width: 9px; margin: 0"
-              />
-              <p
-                style="font-size: 10px; margin: 0; padding: 0; color: green"
-                class="poppins"
-              >
-                &nbsp; {{ item.address }}, {{ item.city }}
-              </p>
+            <div class="locationstyle">
+              <ion-icon name="location-outline"></ion-icon>
+              <!-- <img src="assets/images/locationIcon.png" /> -->
+              <p class="poppins">&nbsp;{{ item.address }}, {{ item.city }} </p>
             </div>
           </div>
         </div>

@@ -20,10 +20,13 @@ export class AmountPeopleComponent extends BasePage implements OnInit {
   peopletype: any;
   constructor(injector: Injector) {
     super(injector);
-    this.getPeopleType();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPeopleType();
+    console.log('park_id => ', this.park_id)
+    console.log('this.amountofpeople => ', this.amountofpeople)
+  }
 
   back() {
     this.modals.dismiss();
@@ -54,9 +57,9 @@ export class AmountPeopleComponent extends BasePage implements OnInit {
     this.peopletype = res;
     if (this.amountofpeople) {
       console.log('amountofpeople', this.amountofpeople);
-      this.Adults = this.amountofpeople[0]?.count;
-      this.Childrens = this.amountofpeople[1]?.count;
-      this.Pets = this.amountofpeople[2]?.count;
+      this.Adults = this.amountofpeople[0]?.capacity;
+      this.Childrens = this.amountofpeople[1]?.capacity;
+      this.Pets = this.amountofpeople[2]?.capacity;
     }
   }
   async deletePeopleType(id) {
@@ -67,17 +70,9 @@ export class AmountPeopleComponent extends BasePage implements OnInit {
 
   async submit() {
     let data = [
-      { park_id: this.park_id, name: 'Adults', count: this.Adults },
-      {
-        park_id: this.park_id,
-        name: 'Childrens',
-        count: this.Childrens,
-      },
-      {
-        park_id: this.park_id,
-        name: 'Pets',
-        count: this.Pets,
-      },
+      { park_id: this.park_id, name: 'Adults', capacity: this.Adults },
+      { park_id: this.park_id, name: 'Childrens', capacity: this.Childrens, },
+      { park_id: this.park_id, name: 'Pets', capacity: this.Pets, },
     ];
     console.log(data);
 

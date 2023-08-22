@@ -1,20 +1,12 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay" class="sidebarContainer">
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-title>{{ "" }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="sidebarContainer">
+      <ion-content class="ioncontent">
         <div>
+          <figure class="sidebarlogo"><img src="./../assets/images/icon.png" /></figure>
           <ul>
             <li (click)="gotoHome()">
-              <img
-                src="assets/images/home_icon.png"
-                alt="home_icon"
-                height="20px"
-              />
+              <img src="assets/images/home_icon.png" alt="home_icon" height="20px" />
               <ion-button class="sideBarButtons" expand="full">HOME</ion-button>
             </li>
             <li (click)="gotoCart()" [hidden]="users.role_id !== 2">
@@ -22,47 +14,25 @@
               <ion-button class="sideBarButtons" expand="full">CART</ion-button>
             </li>
             <li (click)="gotoPrivacyPolicy()">
-              <img
-                src="assets/images/privacy_policy_icon.png"
-                alt="home_icon"
-              />
-              <ion-button class="sideBarButtons" expand="full"
-                >PRIVACY POLICY</ion-button
-              >
+              <img src="assets/images/privacy_policy_icon.png" alt="home_icon" />
+              <ion-button class="sideBarButtons" expand="full">PRIVACY POLICY</ion-button>
             </li>
             <li (click)="gotoTransection()">
-              <img
-                src="assets/images/privacy_policy_icon.png"
-                alt="home_icon"
-              />
-              <ion-button class="sideBarButtons" expand="full"
-                >TRANSACTION</ion-button
-              >
+              <img src="assets/images/privacy_policy_icon.png" alt="home_icon" />
+              <ion-button class="sideBarButtons" expand="full">TRANSACTION</ion-button>
             </li>
             <li (click)="openOrderHistory()">
-              <img
-                src="assets/images/privacy_policy_icon.png"
-                alt="home_icon"
-              />
-              <ion-button class="sideBarButtons" expand="full"
-                >OWNER HISTORY</ion-button
-              >
+              <img src="assets/images/privacy_policy_icon.png" alt="home_icon" />
+              <ion-button class="sideBarButtons" expand="full">OWNER HISTORY</ion-button>
             </li>
-            <li
-              (click)="logout()"
-              style="margin-top: 46px; background-color: #166a08"
-            >
-              <img
-                src="assets/images/logout_icon.png"
-                alt="home_icon"
-              /><ion-button class="sideBarButtons" expand="full"
-                >LOGOUT</ion-button
-              >
+            <li (click)="logout()" style="margin-top: 46px; background-color: #166a08">
+              <img src="assets/images/logout_icon.png" alt="home_icon" /><ion-button class="sideBarButtons"
+                expand="full">LOGOUT</ion-button>
             </li>
           </ul>
         </div>
 
-        <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab class="fabicon" slot="fixed" vertical="bottom" horizontal="end">
           <ion-fab-button color="light" (click)="openChat()">
             <ion-icon name="chatbox-ellipses-outline"></ion-icon>
           </ion-fab-button>

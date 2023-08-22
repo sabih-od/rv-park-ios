@@ -7,33 +7,35 @@ import { BasePage } from 'src/app/pages/base-page/base-page';
   styleUrls: ['./order-history.component.scss'],
 })
 export class OrderHistoryComponent extends BasePage implements OnInit {
-  orderitems : any[] = [];
+  orderitems: any[] = [];
+  loading = true;
+
   constructor(injector: Injector) {
     super(injector)
-   }
+  }
+  
 
   ngOnInit() {
     this.getOrders();
   }
-  back(){
+  back() {
     this.modals.dismiss();
   }
-  async getOrders(){
-    await this.network.getOrders().then((res)=> {
+  async getOrders() {
+    await this.network.getOrders().then((res) => {
       console.log(res);
+      this.loading = false;
       this.orderitems = res
     })
   }
 
-  startDate(date)
-  {
-    const response = date.split('' , 10).join('');
+  startDate(date) {
+    const response = date.split('', 10).join('');
     return response;
   }
 
-  endDate(date)
-  {
-    const response = date.split('' , 10).join('');
+  endDate(date) {
+    const response = date.split('', 10).join('');
     return response;
   }
 }

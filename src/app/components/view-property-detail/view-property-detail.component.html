@@ -1,0 +1,112 @@
+<!-- <ion-label class="date-head">Select Dates:</ion-label>
+<ion-calendar (change)="getSetDates($event)" [options]="options"></ion-calendar> -->
+
+<ion-header [class.curve-header]="users.role_id !== 3">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer">
+        <ion-buttons slot="start" (click)="back()">
+          <ion-button>
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <h4 style="color: black" class="sanseriflf demibold"> Property Details </h4>
+      </div>
+      <!-- <div class="main-icon-outer"></div> -->
+    </div>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="loading" class="loadingcart ion-text-center">
+    <ion-spinner></ion-spinner>
+    <p>Loading Details..</p>
+  </div>
+  <div *ngIf="!loading">
+    <ion-slides *ngIf="data?.park_images?.length > 0" pager="true" class="ion-slide-styles">
+      <ion-slide *ngFor="let item of data.park_images">
+        <div class="parent-image-outer">
+          <div class="child-image-outer square-image-large" [style.background]="'url( ' + getItemImage(item) + ')'">
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="container">
+      <div>
+        <div class="name sanseriflf demibold">{{data.name}}</div>
+      </div>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>{{data.city}}, {{data.country}}, {{ data.zip }}
+      </div>
+    </div>
+    <div class="select-box">
+      <p class="sansanseriflf">RV Spots</p>
+
+      <ion-button *ngIf="users.role_id === 3" style="height: 25px; font-size: 12px; margin-left: 13.5vh"
+        (click)="goToEditPark()">
+        Edit Park</ion-button>
+      <ion-button *ngIf="users.role_id === 3" style="height: 25px; font-size: 12px" (click)="deletePark()"> Delete
+        Park</ion-button>
+
+    </div>
+    <div class="greenspots">
+      <ion-chip *ngFor="let item of data.park_sopts" class="ball sanseriflf demibold" [ngClass]="returnParseInt(item.availability) === 1 ? 'green' :
+          'gray'">
+        {{item.spot_name}}
+      </ion-chip>
+    </div>
+
+    <div class="descContainer">
+      <h1 class="sanseriflf demibold">Description</h1>
+      <p class="poppins" style="font-size: 13">{{data.description}}</p>
+    </div>
+    <div class="descContainer" *ngIf="data.park_amenities.length > 0">
+      <h1 class="sanseriflf demibold">Amenities</h1>
+      <p class="poppins" style="font-size: 13">
+        {{writeParkAmenities(data.park_amenities)}}
+      </p>
+    </div>
+    <div class="descContainer" *ngIf="data.park_camper_sizes.length > 0">
+      <h1 class="sanseriflf demibold">Camper Size</h1>
+      <p class="poppins" style="font-size: 13">
+        {{writeParkCamper(data.park_camper_sizes)}}
+      </p>
+    </div>
+    <div class="descContainer" *ngIf="data.park_people_types.length > 0">
+      <h1 class="sanseriflf demibold">People</h1>
+      <p class="poppins" style="font-size: 13" *ngFor="let p of data.park_people_types">
+        {{writeParkPeople(p)}}
+      </p>
+    </div>
+
+    <ion-list class="ion-no-padding spotdetails">
+      <h1 class="sanseriflf demibold">{{ 'Spots Details' }}</h1>
+      <!-- <ion-radio-group value="strawberries" [(ngModel)]="selectedPackageId" multiple="true"> -->
+      <div *ngFor="let item of data.park_sopts">
+        <div>
+          <ion-card class="ion-padding" [ngClass]="{cssClass: item.availability == 0}">
+            <ion-chip class="chip">
+              {{item['start_date'] | date: 'MM/dd/yyyy'}}
+            </ion-chip>
+            <ion-chip class="chip">{{ item['end_date'] | date: 'MM/dd/yyyy' }}</ion-chip>
+            <ion-item lines="none" class="ion-no-padding" [color]="item.id === selectedPackageId ? 'light' : ''">
+              <ion-label>
+                <h2>{{item['spot_name']}}</h2>
+                <p>{{item['spot_location']}}</p>
+              </ion-label>
+            </ion-item>
+
+            <span *ngIf="item.availability == 0" [ngClass]="{booked: item.availability == 0}"
+              [hidden]="users.role_id === 3">
+              Not Available
+            </span>
+          </ion-card>
+        </div>
+      </div>
+
+    </ion-list>
+
+  </div>
+</ion-content>
+<!-- <app-home-category-slider></app-home-category-slider> -->

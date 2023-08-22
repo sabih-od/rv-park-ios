@@ -1,4 +1,4 @@
-<ion-header class="ion-padding">
+<ion-header class="">
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -16,7 +16,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+
+  <div *ngIf="loading" class="loadingcart ion-text-center">
+    <ion-spinner></ion-spinner>
+    <p>Loading State..</p>
+  </div>
+
+  <ion-list class="selectlistitem">
     <ion-item *ngFor="let item of cities" (click)="selectState(item)">
       {{ item.name }}
     </ion-item>

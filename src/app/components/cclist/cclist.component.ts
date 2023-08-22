@@ -9,6 +9,8 @@ import { InfiniteScrollCustomEvent } from '@ionic/core';
   styleUrls: ['./cclist.component.scss'],
 })
 export class CclistComponent extends BasePage implements OnInit {
+
+  loading = true;
   cities: any[] = [];
   searchTerm: any = '';
   @Input() state: any;
@@ -42,6 +44,7 @@ export class CclistComponent extends BasePage implements OnInit {
 
     this.last_page = data.last_page;
     this.cities = data.data;
+    this.loading = false;
     // console.log('citiest', this.cities);
 
     // let test = this.cities.filter(x => x === this.city);

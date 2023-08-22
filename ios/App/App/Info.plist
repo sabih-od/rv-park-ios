@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses Camera to capture Photos and videos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app uses Library to picking Photos</string>
 	<key>CFBundleDisplayName</key>
-	<string>rvpark-n6</string>
+	<string>KJ RV Portal</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,12 +24,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>fdsagdsafdsfdsfdsfdsafdsafdas</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>ghjghjgkhjkghjkghjkghjkghjkghjkghjk</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>gfdsgfdgfdgfdgsfdshfdsfdshfdgfdgfdsgfds</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -51,10 +47,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>

@@ -1,12 +1,18 @@
-.sidebarContainer{
-    --background: #167206;
-    // height: 100%;
-    width: 243px;
+.sidebarContainer {
+    --background: transparent;
+    padding-top: constant(safe-area-inset-top); /* iOS devices */
+    padding-top: env(safe-area-inset-top); /* Android devices */
 }
-.profileContainer{
-    background-color: #166A08;
+
+.sidebarlogo {
+    margin: 30px auto 0 auto;
+    width: 130px;
+}
+
+.profileContainer {
+    // background-color: #166A08;
     height: 219px;
-    width: 243px;
+    // width: 243px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,45 +20,60 @@
     padding-top: 29px;
     padding-bottom: 29px;
 }
-.joinButton{
+
+.joinButton {
     --background: white;
     color: #167206;
     border-radius: 16px;
     font-size: 10px;
 }
-.name{
+
+.name {
     padding: 0;
     margin: 0;
     color: white;
     font-size: 20px;
     font-weight: 400;
 }
-.sideBarButtons{
+
+.sideBarButtons {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    --background:none;
+    --background: none;
     font-size: 12px;
 
 }
 
-ul{
-    width: 243px;
-    background-color: #167206;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.ioncontent {
+    --background: #167206;
+    width: 250px;
+}
+
+ul {
     padding: 0;
+    // width: 243px;
+    // background-color: #167206;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 0;
     // border: 1px solid;
 }
 
-li{
+li {
     width: 243px;
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
 
     align-items: center;
-    font-size: 12px; 
+    font-size: 12px;
     padding-left: 41px;
+}
+
+.fabicon {
+    ion-icon {
+        margin-bottom: -3px;
+    }
 }

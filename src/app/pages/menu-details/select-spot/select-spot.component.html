@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <div class="b-header-output">
     <div class="b-header-main">
       <div class="menu-icon-outer">
@@ -7,12 +7,24 @@
             <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <h4
-          style="color: black; margin-top: -22px; margin-left: 35px"
-          class="sanseriflf demibold"
-        >
+        <h4 style="color: black; margin-top: -22px; margin-left: 35px" class="sanseriflf demibold">
           Spot
         </h4>
+      </div>
+    </div>
+  </div>
+</ion-header> -->
+
+<ion-header class="curve-header">
+  <div class="b-header-output">
+    <div class="b-header-main">
+      <div class="menu-icon-outer">
+        <ion-buttons slot="start" (click)="back()">
+          <ion-button>
+            <ion-icon name="chevron-back-outline" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <h4>Spot</h4>
       </div>
     </div>
   </div>
@@ -20,24 +32,18 @@
 
 <ion-content>
   <div class="content">
-    <div>
-      <ion-label class="head">
-        Spot Name: <span style="color: #167206">{{ item["spot_name"] }}</span>
-      </ion-label>
-      <br />
-      <br />
-      <ion-label class="head">
-        Spot Location:
-        <span style="color: #167206">{{ item["spot_location"] }}</span>
-      </ion-label>
-      <br />
-      <br />
-      <ion-label class="head">
-        Spot Price:
-        <span style="color: #167206">{{ item["spot_price"] }} (Per day)</span>
-      </ion-label>
-    </div>
-    <br />
+    <ul>
+      <li class="head"><span class="labelspot">Spot Name</span> <span style="color: #167206">{{ item["spot_name"]
+          }}</span> </li>
+      <li class="head"><span class="labelspot">Spot Location</span> <span style="color: #167206">{{
+          item["spot_location"] }}</span> </li>
+      <li class="head"><span class="labelspot">Spot Price</span> <span style="color: #167206">{{ item["spot_price"] }}
+          (Per day)</span>
+      </li>
+      <li class="head">
+        <span class="labelspot">Available Dates</span> <span style="color: #167206">{{ item_startdate }} - {{ item_enddate }}</span>
+      </li>
+    </ul>
     <!-- <div class="round-box inputs">
     <ion-select placeholder="Select Type" [(ngModel)]="ctype" (ionChange)="ctyleChange($event)">
       <ion-select-option value="daily">Daily</ion-select-option>
@@ -46,15 +52,16 @@
     </ion-select>
   </div> -->
 
-    <ion-label class="date-head">Select Dates:</ion-label>
-    <ion-calendar
-      class="calender-outline"
-      [(ngModel)]="dateRange"
-      [options]="optionsRange"
-      [type]="'moment'"
-      (change)="getSetDates($event)"
-      [format]="'YYYY-MM-DD'"
-    >
+    <ion-label class="date-head">Select Dates</ion-label>
+
+    <div *ngIf="!loadcalender" class="loadingcalendar ion-text-center">
+      <ion-spinner></ion-spinner>
+      <p>Loading Calendar..</p>
+    </div>
+
+
+    <ion-calendar class="calender-outline" *ngIf="loadcalender" [(ngModel)]="dateRange" [options]="optionsRange"
+      [type]="'moment'" (change)="getSetDates($event)" [format]="'YYYY-MM-DD'">
     </ion-calendar>
     <!-- <div class="datebox" >
       <h2 class="date">
@@ -74,46 +81,30 @@
         <ion-select-option value="Monthly" *ngIf="dat.monthly_price != null">Monthly ${{dat.monthly_price}}</ion-select-option>
       </ion-select>
     </div> -->
-    <div class="most-input-outer-date">
-      <h6 class="head">Start Date</h6>
-      <div class="round-box">
-        <ion-list class="date">
-          <input
-            readonly
-            id="start"
-            [(ngModel)]="startdate"
-            style="margin-top: 10px; border: none"
-            type="text"
-            placeholder="Start-Date"
-          />
-          <!-- (change)="dateChange($event)" -->
-          <!-- onfocus="(this.type='date')" -->
-        </ion-list>
+    <div class="startdateenddate">
+      <div class="most-input-outer-date">
+        <h6 class="head">Start Date</h6>
+        <div class="round-box">
+          <ion-list class="date">
+            <input readonly id="start" [(ngModel)]="startdate" style="" type="text" placeholder="Start-Date" />
+            <!-- (change)="dateChange($event)" -->
+            <!-- onfocus="(this.type='date')" -->
+          </ion-list>
+        </div>
+      </div>
+      <div class="most-input-outer-date2">
+        <h6 class="head">End Date</h6>
+        <div class="round-box">
+          <ion-list class="date">
+            <input readonly id="start" [(ngModel)]="enddate" style="" type="text" placeholder="End-Date"
+              readonly="true" />
+            <!-- onfocus="(this.type='date')" -->
+          </ion-list>
+        </div>
       </div>
     </div>
-    <div class="most-input-outer-date2">
-      <h6 class="head">End Date</h6>
-      <div class="round-box">
-        <ion-list class="date">
-          <input
-            readonly
-            id="start"
-            [(ngModel)]="enddate"
-            style="margin-top: 10px; border: none"
-            type="text"
-            placeholder="End-Date"
-            readonly="true"
-          />
-          <!-- onfocus="(this.type='date')" -->
-        </ion-list>
-      </div>
-    </div>
-    <ion-button
-      expand="block"
-      (click)="checkMyItemSelected()"
-      class="btn"
-      [disabled]="!startdate || !enddate || !packageType"
-    >
+    <ion-button expand="block" (click)="checkMyItemSelected()" class="btn"
+      [disabled]="!startdate || !enddate || !packageType">
       <ion-icon name="cart-outline"></ion-icon>
     </ion-button>
   </div>

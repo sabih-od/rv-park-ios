@@ -1,10 +1,13 @@
 .cc-box-outer {
   // margin-top: 20px;
 }
+
 .heading {
   text-align: start;
   margin-left: 15px;
-  font-size: 24px;
+  font-size: 22px;
+  margin-top: 8px;
+  text-transform: capitalize;
 }
 
 .item-box {
@@ -12,12 +15,13 @@
   border-radius: 10px;
   width: 100%;
 }
+
 .item {
   text-align: center;
   // height: 170px;
   width: 100%;
   border-radius: 10px;
-  background: #ffffff;
+  // background: #ffffff;
   margin-left: 1px !important;
   // padding: 10px;
   // border: 1px solid lightgray;
@@ -36,14 +40,17 @@
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
+    border-radius: 10px;
     // overflow: hidden;
   }
+
   img {
     border-radius: 10px;
     width: 100%;
     height: 104px;
     margin-top: 10px;
   }
+
   .b-346347 {
     font-size: 10px;
     margin: 10px 0;
@@ -61,11 +68,13 @@
 }
 
 .name {
-  padding: 0;
   margin: 0;
   font-size: 16px;
-  font-weight: 300;
+  text-transform: capitalize;
+  margin-bottom: 3px;
+  font-family: "PoppinsSemibold";
 }
+
 .location {
   color: #167206;
   padding: 0;
@@ -73,6 +82,7 @@
   display: inline-block;
   font-size: 10px;
 }
+
 .locationspan {
   display: flex;
   justify-content: flex-start;
@@ -80,6 +90,7 @@
   width: auto;
   // background-color: #167206;
 }
+
 .new {
   color: green;
   font-size: 14px;
@@ -89,17 +100,48 @@
   height: 15px;
   width: auto;
 }
+
 .a123 {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-top: 25px;
+  margin-top: 6px;
   width: 100%;
-  padding: 0 5px;
+  line-height: 1;
 }
 
 img {
   height: 12px;
   width: 8px;
+}
+
+.locationstyle {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  align-items: center;
+
+  img {
+    height: 12px;
+    width: 9px;
+    margin: 0
+  }
+
+  ion-icon {
+    color: green;
+  }
+
+  p {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: green;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+    text-transform: capitalize;
+  }
 }

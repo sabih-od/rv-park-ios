@@ -1,7 +1,13 @@
 import { ChatPage } from './pages/dashboard/chat/chat.page';
 import { UserService } from 'src/app/services/user.service';
 import { NetworkService } from 'src/app/services/network.service';
-import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MenuController, ModalController, Platform } from '@ionic/angular';
 import { BasePage } from './pages/base-page/base-page';
 import { CartPage } from './pages/cart/cart.page';
@@ -12,21 +18,29 @@ import { UtilityService } from './services/utility.service';
 import { Router } from '@angular/router';
 import { TransitionsPage } from './pages/dashboard/transitions/transitions.page';
 import { OrderHistoryComponent } from './pages/dashboard/user/order-history/order-history.component';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-
-
 export class AppComponent {
-
   // role_id = 2;
   isModalOpen;
   @Output('activeIndex') activeIndex: EventEmitter<any> =
     new EventEmitter<any>();
-  constructor(public menuCtrl: MenuController,  private router: Router, public platform: Platform, public utility: UtilityService, private modalController: ModalController, private modals: ModalService, public nav: NavService, public users: UserService) {
+  constructor(
+    public menuCtrl: MenuController,
+    public fcm: FirebaseService,
+    private router: Router,
+    public platform: Platform,
+    public utility: UtilityService,
+    private modalController: ModalController,
+    private modals: ModalService,
+    public nav: NavService,
+    public users: UserService
+  ) {
     this.get();
 
     platform.ready().then(() => {
@@ -43,7 +57,6 @@ export class AppComponent {
       },
       false
     );
-
   }
 
   initialize() {
@@ -57,10 +70,10 @@ export class AppComponent {
   }
 
   initializeApp() {
-    console.log("initsjadfklasjd");
+    console.log('initsjadfklasjd');
 
     this.platform.ready().then(async () => {
-      // await this.fcm.setupFMC();
+      await this.fcm.setupFMC();
     });
   }
 
@@ -92,9 +105,9 @@ export class AppComponent {
     navigator['app'].exitApp();
   }
 
-  async get(){
-    console.log("dashboard",await this.users.getUserRoleId());
-    console.log("user",await this.users.getUser())
+  async get() {
+    console.log('dashboard', await this.users.getUserRoleId());
+    console.log('user', await this.users.getUser());
   }
 
   // async checkMenuForRole(){
@@ -103,50 +116,50 @@ export class AppComponent {
   // }
 
   openMenu() {
-    this.menuCtrl.toggle()
+    this.menuCtrl.toggle();
   }
   gotoCart() {
-    console.log("go to cart");
+    console.log('go to cart');
 
     this.modals.present(CartPage);
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
   gotoExplore() {
-    console.log("go to Explore")
+    console.log('go to Explore');
 
     // this.activeIndex.emit(item);
     // this.modals.present(Explore);
 
     this.nav.push('pages/dashboard/location');
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
   gotoHome() {
-    console.log("go to Home")
+    console.log('go to Home');
 
     this.nav.push('pages/dashboard/home');
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
   async openChat() {
-    console.log("go to Home")
+    console.log('go to Home');
 
     // this.nav.push('pages/dashboard/chat');
     await this.menuCtrl.close();
-    this.modals.present(ChatPage );
+    this.modals.present(ChatPage);
   }
   gotoPrivacyPolicy() {
-    console.log("go to privacy policy")
+    console.log('go to privacy policy');
 
     this.nav.push('pages/dashboard/privacy-policy');
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
 
   async gotoTransection() {
     const res = await this.modals.present(TransitionsPage, {
       type: 'order',
-      isModal: true
+      isModal: true,
     });
 
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
 
   async openOrderHistory() {
@@ -156,17 +169,16 @@ export class AppComponent {
   }
 
   gotoCalander() {
-    console.log('go to Calander')
+    console.log('go to Calander');
 
     this.nav.push('pages/dashboard/calander');
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
 
   logout() {
-
     this.users.user = null;
     localStorage.clear();
     this.nav.setRoot('pages/login');
-    this.menuCtrl.close()
+    this.menuCtrl.close();
   }
 }

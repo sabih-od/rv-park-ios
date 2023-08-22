@@ -37,6 +37,7 @@ ion-toolbar {
   --border: unset !important;
   --border-width: 0 !important;
 }
+
 .w-100 {
   width: 100%;
 }
@@ -53,7 +54,7 @@ ion-toolbar {
 
 .curve-header {
   background: #fbfbfb;
-  border-radius: 0 0 50px 50px;
+  border-radius: 0 0 30px 30px;
 }
 
 .curve-toolbar {
@@ -64,15 +65,18 @@ ion-toolbar {
   /* background: #ffffff !important; */
   padding: 16px;
   --border-radius: 25px;
+
   input.searchbar-input {
     font-size: 12px;
     padding-left: 40px !important;
   }
+
   ion-icon.searchbar-search-icon {
     width: 16px;
     padding-left: 8px;
   }
 }
+
 * {
   font-family: Poppins;
 }
@@ -88,8 +92,69 @@ input {
 
 .mark-in-middle {
   // background-color: pink !important;
-  -webkit-text-decoration-line: line-through; /* Safari */
+  -webkit-text-decoration-line: line-through;
+  /* Safari */
   text-decoration-line: line-through;
+}
+
+
+
+.b-header-output {
+  display: block;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  .b-header-main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 7px 16px;
+    align-items: center;
+
+    .menu-icon-outer {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      ion-button {
+        margin-left: -11px;
+
+        ion-icon {
+          margin-right: 8px !important;
+        }
+      }
+
+      h4 {
+        margin-top: 10px;
+        font-size: 20px;
+        font-family: 'PoppinsSemibold';
+      }
+
+      .menu76 {
+        margin-right: 16px;
+      }
+    }
+  }
+}
+
+.bell-icon-outer {
+  margin-left: 10px;
+  border-radius: 100%;
+  width: 37px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #167206;
+  color: #fff;
+  padding: 0;
+  font-size: 19px;
+  min-width: 37px;
 }
 
 // body {
@@ -99,3 +164,56 @@ input {
 // ion-tab-bar {
 //   margin-bottom: calc(4px + env(safe-area-inset-top));
 // }
+
+.selectlistitem {
+  ion-item {
+    font-size: 14px;
+
+    ion-checkbox {
+      width: 18px;
+      height: auto;
+    }
+  }
+}
+
+
+.loadingcart.ion-text-center {
+  height: calc(100vh - 146px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  ion-spinner {
+    color: #4d8943;
+  }
+
+  p {
+    font-family: 'Poppins' !important;
+    font-size: 13px !important;
+    text-align: center;
+    color: #999;
+    margin: 8px 0 0 0;
+  }
+}
+
+.noitemfound {
+  --border-color: transparent;
+
+  ion-label,
+  p {
+    font-family: 'Poppins' !important;
+    font-size: 13px !important;
+    text-align: center;
+    color: #999;
+    margin: 0;
+  }
+}
+
+
+ion-header {
+  --ion-header-md-transition: none;
+  --ion-header-ios-transition: none;
+  --ion-header-wp-transition: none;
+}

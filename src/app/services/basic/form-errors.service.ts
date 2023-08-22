@@ -24,7 +24,7 @@ export class FormErrorsService {
     return invalid;
   }
 
-  getFirstFormError(form: FormGroup){
+  getFirstFormError(form: FormGroup) {
 
     var errorMessage = "Error";
     const res = this.findInvalidControls(form);
@@ -34,27 +34,37 @@ export class FormErrorsService {
 
     let label = first['con'].replace('_', ' ');
 
-    if(first.error?.['required']){
+    if (first.error?.['required']) {
       errorMessage = label + " is required";
     }
 
-    if(first.error?.['minlength']){
+    if (first.error?.['minlength']) {
       errorMessage = label + " at least " + first.error?.['minlength'].requiredLength + " characters";
     }
 
-    if(first.error?.['min']){
+    if (first.error?.['min']) {
       errorMessage = label + " at least " + first.error?.['min'].min + " ";
     }
 
-    if(first.error?.['maxlength']){
+    if (first.error?.['maxlength']) {
       errorMessage = label + " at most " + first.error?.['maxlength'].requiredLength + " characters";
     }
 
-    if(first.error?.['pattern']){
-      errorMessage = label + " should be like " + first.error?.['pattern'].requiredPattern + " pattern";
+    if (first.error?.['pattern']) {
+      if (label == 'password' || label == 'confirm password') {
+        errorMessage = label + ' must contains numbers, letters, and special characters';
+      } else if (label == 'name') {
+        errorMessage = 'Please enter valid name';
+      } else if (label == 'email') {
+        errorMessage = 'Please provide valid email address';
+      } else if (label == 'phone_number') {
+        errorMessage = 'Please provide valid phone number';
+      } else {
+        errorMessage = label + " should be like " + first.error?.['pattern'].requiredPattern + " pattern";
+      }
     }
 
-    if(first.error?.['email']){
+    if (first.error?.['email']) {
       errorMessage = label + "  format error ";
     }
 

@@ -1,37 +1,47 @@
 .login-component-mainheading {
   font-size: 28px;
   margin-bottom: 7px;
-  margin-top: 60px;
+  text-align: center;
 }
+
 .login-component-heading {
   font-size: 14px;
   margin-bottom: 36px;
   color: #808080;
   font-weight: lighter;
+  text-align: center;
 }
+
 .fp-box-outer {
   height: 40px;
   width: 100%;
   //   background: yellow;
   position: relative;
+
   .fp-link {
-    color: var(--ion-color-primary);
-    border-bottom: 1px solid var(--ion-color-primary);
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    /* color: var(--ion-color-primary); */
+    /* border-bottom: 1px solid var(--ion-color-primary); */
+    /* position: absolute; */
+    /* right: 15px; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
     font-size: 12px;
+    margin-top: 10px;
+    margin-left: auto;
+    text-align: right;
   }
 }
+
 .b-button-outer {
   width: 100%;
   margin-top: 21px;
   margin-bottom: 34px;
 }
+
 .or-div {
   font-size: 18px;
 }
+
 .cont-div {
   font-size: 14px;
   margin-top: 15px;
@@ -39,7 +49,7 @@
 }
 
 .dnt-div {
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 .f-pop-li {
@@ -58,19 +68,28 @@
   justify-content: center;
 }
 
-.ibox-inputs{
- margin-top: 36px;
+.ibox-inputs {
+  margin-top: 36px;
 }
 
-.login_button{
+.login_button {
   --background: green;
 }
 
-.signup_button{
-  --background : rgb(2, 97, 2);
+.signup_button {
+  --background: rgb(2, 97, 2);
 }
 
+ion-checkbox {
+  --size: 16px;
+}
 
+ion-label {
+  font-size: 14px !important;
+  font-family: "Poppins" !important; 
+}
 
-
-
+ion-item {
+  --padding-start: 0;
+  --border-color: transparent;
+}

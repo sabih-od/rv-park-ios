@@ -1,21 +1,20 @@
 .ibox-inputs.signup {
   display: flex;
   flex-direction: column;
-  margin-top: 46px;
+  margin-top: 30px;
   app-icon-input-box {
     flex: 1;
-    padding: 10px 0;
+    padding: 5px 0;
   }
 }
 
 .login-component-mainheading {
   font-size: 28px;
-  margin-top: 60px;
   margin-bottom: 7px;
 }
 .login-component-heading {
   font-size: 14px;
-  margin-bottom: 23px;
+  margin-bottom: 15px;
   color: #808080;
 }
 .fp-box-outer {
@@ -36,7 +35,7 @@
 .b-button-outer {
   width: 100%;
   margin-top: 21px;
-  margin-bottom: 34px;
+  margin-bottom: 0;
 }
 .or-div {
   font-size: 18px;
@@ -48,7 +47,7 @@
 }
 
 .dnt-div {
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 .f-pop-li {
@@ -110,7 +109,7 @@
 //   transform: rotate(45deg);
 // }
 
-.radio{
+.radio {
   width: 100%;
   height: 50px;
   // background-color: blue;
@@ -119,8 +118,7 @@
   align-items: center;
 }
 
-
-input[type='radio']:after {
+input[type="radio"]:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -128,13 +126,13 @@ input[type='radio']:after {
   left: -1px;
   position: relative;
   background-color: white;
-  content: '';
+  content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid green;
 }
 
-input[type='radio']:checked:after {
+input[type="radio"]:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 25px;
@@ -142,85 +140,81 @@ input[type='radio']:checked:after {
   left: -1px;
   position: relative;
   background-color: green;
-  content: '';
+  content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
 }
 
-.signup_button{
-  --background:green;
+.signup_button {
+  --background: green;
 }
 
-.sign1{
+.sign1 {
   color: green;
-
 }
-
 
 html {
   font-family: Arial;
 }
 
-
 .radio-button {
   cursor: pointer;
   padding-right: 25px;
 }
-input[type=radio] {
-    box-sizing: border-box;
-    padding: 0;
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
 }
 
 input {
-    font-size: 1rem;
-    line-height: 1.5;
-    padding: 11px 23px;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 0;
-    outline: 0;
-    background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 11px 23px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  outline: 0;
+  background-color: transparent;
 }
 
 .radio-button__input {
-    opacity: 0;
-    position: absolute;
+  opacity: 0;
+  position: absolute;
 }
 
 .radio-button__control {
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 7px;
-    vertical-align: middle;
-    background-color: inherit;
-    color: #017b5f;
-    border: 2px solid #666;
-    border-radius: 24px;
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+  vertical-align: middle;
+  background-color: inherit;
+  color: #017b5f;
+  border: 2px solid #666;
+  border-radius: 24px;
 }
 
-.radio-button__input:checked+.radio-button__control:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 10px;
-    height: 10px;
-    background-color: green;
-    border-radius: 12px;
+.radio-button__input:checked + .radio-button__control:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 12px;
 }
 
-.radio-button__input:checked+.radio-button__control {
-    border-color: green;
+.radio-button__input:checked + .radio-button__control {
+  border-color: green;
 }
 
 .radio-button__control {
   transform: scale(0.75);
 }
-.example
-{ 
+.example {
   display: flex;
   flex-direction: row;
   justify-content: center;

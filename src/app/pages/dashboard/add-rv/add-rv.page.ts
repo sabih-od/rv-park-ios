@@ -25,31 +25,14 @@ export class AddRvPage extends BasePage implements OnInit {
   selectedState: any;
   url;
   urls = [
-    {
-      id: 1,
-      image_url: null,
-    },
-    {
-      id: 2,
-      image_url: null,
-    },
-    {
-      id: 3,
-      image_url: null,
-    },
-    {
-      id: 4,
-      image_url: null,
-    },
-    {
-      id: 5,
-      image_url: null,
-    },
-    {
-      id: 6,
-      image_url: null,
-    },
+    { id: 1, image_url: null, },
+    { id: 2, image_url: null, },
+    { id: 3, image_url: null, },
+    { id: 4, image_url: null, },
+    { id: 5, image_url: null, },
+    { id: 6, image_url: null, },
   ];
+  heading = 'Add';
   paths: any[] = [];
   spotName: any;
   step = 1;
@@ -61,12 +44,14 @@ export class AddRvPage extends BasePage implements OnInit {
   amountofpeopleString = '';
   constructor(injector: Injector) {
     super(injector);
+
   }
 
   ngOnInit() {
     this.url = Config.URL;
     this.setupForm();
     // this.addSpot()
+    if (this.park && this.isEdit === true) { this.heading = 'Edit' }
   }
 
   inputChange($event, type) {
@@ -86,6 +71,7 @@ export class AddRvPage extends BasePage implements OnInit {
       id: ['', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
+      zip: ['', Validators.compose([Validators.required])],
       location: ['', Validators.compose([Validators.required])],
       city: ['', Validators.compose([Validators.required])],
       province: ['', Validators.compose([Validators.required])],
@@ -99,6 +85,7 @@ export class AddRvPage extends BasePage implements OnInit {
       if (this.isEdit === true) {
         this.inputChange(this.park.name, 'name');
         this.inputChange(this.park.address, 'address');
+        this.inputChange(this.park.zip, 'zip');
         this.inputChange(this.park.city, 'city');
         this.inputChange(this.park.location, 'location');
         this.inputChange(this.park.province, 'province');
@@ -122,9 +109,9 @@ export class AddRvPage extends BasePage implements OnInit {
       this.aForm.controls['address'].value === '' ||
       this.aForm.controls['address'].value === ' ' ||
       this.aForm.controls['address'].value === undefined ||
-      // this.aForm.controls['location'].value === '' ||
-      // this.aForm.controls['location'].value === ' ' ||
-      // this.aForm.controls['location'].value === undefined ||
+      this.aForm.controls['zip'].value === '' ||
+      this.aForm.controls['zip'].value === ' ' ||
+      this.aForm.controls['zip'].value === undefined ||
       this.aForm.controls['city'].value === '' ||
       this.aForm.controls['city'].value === ' ' ||
       this.aForm.controls['city'].value === undefined ||
@@ -142,6 +129,8 @@ export class AddRvPage extends BasePage implements OnInit {
     } else {
       if (!this.park_id) {
         this.loading = true;
+        console.log('safdghsdg', this.aForm.value);
+
         const res = await this.network.addPark(this.aForm.value);
         this.utility.presentSuccessToast('Parks Added');
         console.log('getPark', res);
@@ -179,14 +168,27 @@ export class AddRvPage extends BasePage implements OnInit {
 
   async addParkPeople() {
     for (var i = 0; i < this.amountofpeople.length; i++) {
-      let data = {
-        park_id: this.park_id,
-        name: this.amountofpeople[i].name,
-        capacity: this.amountofpeople[i].count
-          ? this.amountofpeople[i].count.toString()
-          : '',
-      };
-      this.network.addPeopleType(data);
+      if (this.amountofpeople[i]?.id) {
+        this.amountofpeople[i].capacity = this.amountofpeople[i].capacity.toString()
+        // let data = {
+        //   park_id: this.park_id,
+        //   name: this.amountofpeople[i].name,
+        //   capacity: this.amountofpeople[i].capacity
+        //     ? this.amountofpeople[i].capacity.toString()
+        //     : '',
+        // };
+        this.network.editPeopleType(this.amountofpeople[i]);
+      } else {
+        this.amountofpeople[i].capacity = this.amountofpeople[i].capacity.toString()
+        // let data = {
+        //   park_id: this.park_id,
+        //   name: this.amountofpeople[i].name,
+        //   capacity: this.amountofpeople[i].capacity
+        //     ? this.amountofpeople[i].capacity.toString()
+        //     : '',
+        // };
+        this.network.addPeopleType(this.amountofpeople[i]);
+      }
     }
   }
 
@@ -274,7 +276,9 @@ export class AddRvPage extends BasePage implements OnInit {
       };
       console.log('data:', data);
       if (findIndex != -1) {
-        this.network.uploadImage(data).then(
+        let g = Object.assign({}, data);
+        g.park_id = this.park_id;
+        this.network.uploadImage(g).then(
           (res) => {
             this.urls[findIndex].image_url = res.image_url;
           }
@@ -339,14 +343,22 @@ export class AddRvPage extends BasePage implements OnInit {
     }
   }
 
+  findItemByName(array, name) {
+    return;
+  }
+
   async openAmountPeople() {
     const res = await this.modals.present(AmountPeopleComponent, {
       tag: 'Amount',
       amountofpeople: this.amountofpeople,
+      park_id: this.park_id
     });
-    console.log('amountPeople', res);
     if (res.data?.data) {
-      this.amountofpeople = res.data.data;
+      let mergedArray = res.data?.data.map(itemA => {
+        let matchedRes = this.amountofpeople.find(item => item.name === itemA.name);
+        return matchedRes ? { ...matchedRes, ...itemA } : itemA;
+      });
+      this.amountofpeople = mergedArray;
     }
 
     // this.amountofpeopleString =
@@ -429,9 +441,17 @@ export class AddRvPage extends BasePage implements OnInit {
 
     this.amenities.splice(index, 1);
   }
+  removePeople(index, item) {
+    console.log('item =. ', item);
+    this.amountofpeople.splice(index, 1);
+    this.network.deletePeopleType(item)
+  }
+
   back() {
+    this.nav.pop();
     this.modals.dismiss();
   }
+
   async getPeopleList() {
     const res = await this.network.getPeopleList(this.park_id);
     console.log('getPeopleList', res);

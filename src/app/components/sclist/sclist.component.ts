@@ -9,6 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SclistComponent extends BasePage implements OnInit {
 
+  loading = true;
   cities: any[] = [];
   searchTerm: any;
   @Input() city;
@@ -28,6 +29,7 @@ export class SclistComponent extends BasePage implements OnInit {
     let data = await this.data.getStates() as any[];
     this.cities = data;
     console.log(this.cities);
+    this.loading = false;
   }
 
   selectState(item){
